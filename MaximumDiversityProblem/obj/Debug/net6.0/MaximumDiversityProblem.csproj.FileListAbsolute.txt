@@ -1,0 +1,5 @@
+C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.csproj.AssemblyReference.cache
+C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.AssemblyInfoInputs.cache
+C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.AssemblyInfo.cs
+C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.csproj.CoreCompileInputs.cache
