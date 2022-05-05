@@ -3,7 +3,7 @@
     public class Greedy : IAlgorithm
     {
 
-        private List<double> GetCentroid(List<List<double>> currentSolution)
+        static private List<double> GetCentroid(List<List<double>> currentSolution)
         {
             List<double> result = currentSolution[0];
             for(int i = 1; i < currentSolution.Count; i++)
@@ -24,7 +24,7 @@
 
 
 
-        private List<List<double>> MakeRCL(List<double> centroid, List<List<double>> availableNodes)
+        static private List<List<double>> MakeRCL(List<double> centroid, List<List<double>> availableNodes)
         {
             List<List<double>> rcl = new List<List<double>>();
 
@@ -33,12 +33,16 @@
             return rcl;
         }
 
-        public Solution Solve(Problem problem, int rclSize)
+        static public Solution Solve(Problem problem, int rclSize)
         {
+
+            Solution solution = new Solution(problem); 
             List<List<double>> availableVectors = new List<List<double>>();
             int numberOfVectors = problem.numberOfVectors;
             int dimensionality = problem.dimensionality;
 
+
+            
             for( int i = 0; i < availableVectors.Count; i++)
             {
                 

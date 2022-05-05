@@ -4,9 +4,7 @@
     {
         public static Solution SolveGreedy(Problem problem, int rclSize)
         {
-            Solution result = new Solution();
-
-            return result;
+            return Greedy.Solve(problem, rclSize);
         }
     }
 }
