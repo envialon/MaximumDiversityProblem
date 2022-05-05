@@ -6,6 +6,8 @@
         public int numberOfVectors = -1;
         public int dimensionality = -1;
         public List<List<double>> vectors = new List<List<double>>();
+        public List<List<double>> distanceMatrix = new List<List<double>>();
+
 
         public Problem(string filename, int numberOfVectors, int dimensionality, List<List<double>> vectors)
         {
@@ -13,6 +15,23 @@
             this.numberOfVectors = numberOfVectors;
             this.dimensionality = dimensionality;
             this.vectors = vectors;
+        }
+
+        private void buildDistanceMatrix()
+        {
+            for (int i = 0; i < numberOfVectors; i++)
+            {
+                for (int j = 0; j < numberOfVectors; j++)
+                {
+                    if(i == j) {
+                        distanceMatrix[i][j] = int.MaxValue;
+                    }
+                    else
+                    {
+                        distanceMatrix[i][j] = Utils.GetDistance(vectors[i], vectors[j]);
+                    }
+                }
+            }
         }
 
         public Problem(string filename)
@@ -43,6 +62,7 @@
             this.dimensionality = int.Parse(lines[1]);
             lines.RemoveRange(0, 2);
             RetrieveVectors(lines);
+            buildDistanceMatrix();
         }
     }
 }
