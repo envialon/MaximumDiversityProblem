@@ -22,6 +22,7 @@ namespace MaximumDiversityProblem
                 problems.Add(new Problem(filename));
             }        
 
+            
         }
     }
 }

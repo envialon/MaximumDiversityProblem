@@ -2,6 +2,6 @@
 {
     public interface IAlgorithm
     {
-        public Solution Solve(Problem problem);
+        public Solution Solve(Problem problem, int rclSize);
     }
 }

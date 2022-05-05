@@ -33,13 +33,16 @@
             return rcl;
         }
 
-        public Solution Solve(Problem problem)
+        public Solution Solve(Problem problem, int rclSize)
         {
             List<List<double>> availableVectors = new List<List<double>>();
             int numberOfVectors = problem.numberOfVectors;
             int dimensionality = problem.dimensionality;
 
-            for( int i = 0; i < availableVectors)
+            for( int i = 0; i < availableVectors.Count; i++)
+            {
+                
+            }
             
             throw new NotImplementedException();
         }
