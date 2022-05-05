@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Algorithms\" />
-    <Folder Include="Solution\" />
+    <Folder Include="Algorithms\LocalSearch\" />
   </ItemGroup>
 
 </Project>
