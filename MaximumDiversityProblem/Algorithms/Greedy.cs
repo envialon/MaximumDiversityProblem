@@ -1,30 +1,34 @@
 ﻿namespace MaximumDiversityProblem
 {
-    public class Greedy : IAlgorithm
+    public class Greedy 
     {
 
-        static private List<double> GetCentroid(List<List<double>> currentSolution)
+        static private List<double> GetCentroid(List<List<double>> availableVectors, HashSet<int> solutionSet)
         {
-            List<double> result = currentSolution[0];
-            for(int i = 1; i < currentSolution.Count; i++)
+            List<int> solutionIndexes = solutionSet.ToList();
+            List<double> result = availableVectors[solutionIndexes[0]];
+
+            result = availableVectors[solutionIndexes[0]];
+
+            for (int i = 0; i < solutionIndexes.Count; i++)
             {
-                for(int j = 0; j < currentSolution[i].Count; j++)
+                for (int j = 0; j < availableVectors.Count; j++)
                 {
-                    result[j] += currentSolution[i][j];
+                    result[j] += availableVectors[solutionIndexes[i]][j];
                 }
             }
 
-            for(int i = 0; i < result.Count; i++)
+            for (int i = 0; i < result.Count; i++)
             {
-                result[i] = result[i] / currentSolution.Count;
+                result[i] /= solutionIndexes.Count;
             }
 
             return result;
-        } 
+        }
 
 
 
-        static private List<List<double>> MakeRCL(List<double> centroid, List<List<double>> availableNodes)
+        static private List<List<double>> MakeRCL(List<double> centroid, List<List<double>> availableNodes, int rclSize)
         {
             List<List<double>> rcl = new List<List<double>>();
 
@@ -35,20 +39,21 @@
 
         static public Solution Solve(Problem problem, int rclSize)
         {
-
+            Random rand = new Random();
             Solution solution = new Solution(problem); 
             List<List<double>> availableVectors = new List<List<double>>();
-            int numberOfVectors = problem.numberOfVectors;
-            int dimensionality = problem.dimensionality;
+            int numberOfVectors = problem.numberOfVectors;     
 
-
-            
-            for( int i = 0; i < availableVectors.Count; i++)
+            for( int i = 0; i < numberOfVectors; i++)
             {
-                
+                List<double> centroid = GetCentroid(availableVectors, solution.solution);
+                List<List<double>> rcl = MakeRCL(centroid, availableVectors, rclSize);
+                int index = rand.Next(0, rcl.Count);
+                solution.solution.Add(index);
+                availableVectors.RemoveAt(index);     
             }
-            
-            throw new NotImplementedException();
+
+            return solution;
         }
     }
 }
