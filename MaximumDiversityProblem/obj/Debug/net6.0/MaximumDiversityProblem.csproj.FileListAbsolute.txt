@@ -3,3 +3,13 @@ C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\
 C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.AssemblyInfoInputs.cache
 C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.AssemblyInfo.cs
 C:\Users\enriq\source\repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.csproj.CoreCompileInputs.cache
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\bin\Debug\net6.0\MaximumDiversityProblem.exe
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\bin\Debug\net6.0\MaximumDiversityProblem.deps.json
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\bin\Debug\net6.0\MaximumDiversityProblem.runtimeconfig.json
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\bin\Debug\net6.0\MaximumDiversityProblem.dll
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\bin\Debug\net6.0\MaximumDiversityProblem.pdb
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.dll
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\refint\MaximumDiversityProblem.dll
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.pdb
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\MaximumDiversityProblem.genruntimeconfig.cache
+C:\Users\enriq\Source\Repos\MaximumDiversityProblem\MaximumDiversityProblem\obj\Debug\net6.0\ref\MaximumDiversityProblem.dll
