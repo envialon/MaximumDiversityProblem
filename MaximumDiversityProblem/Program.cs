@@ -24,12 +24,9 @@ namespace MaximumDiversityProblem
             }
 
 
-            foreach (Problem problem in problems)
-            {
-                Solution solution = AlgorithmManager.SolveGreedy(problem);
-                solutions.Add(solution);
-            }
-            
+
+            Solution solution = AlgorithmManager.SolveGreedy(problems[0]);
+            Console.WriteLine("Greedy solution total distance = " + Utils.GetSolutionDistance(solution));
         }
     }
 }

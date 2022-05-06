@@ -9,11 +9,12 @@
 
             result = vectors[solutionIndexes[0]];
 
-            for (int i = 0; i < solutionIndexes.Count; i++)
+            for (int i = 1; i < solutionIndexes.Count; i++)
             {
-                for (int j = 0; j < vectors.Count; j++)
+                List<double> currentVector = vectors[solutionIndexes[i]];
+                for (int j = 0; j < currentVector.Count; j++)
                 {
-                    result[j] += vectors[solutionIndexes[i]][j];
+                    result[j] += currentVector[j];
                 }
             }
 
@@ -23,6 +24,25 @@
             }
 
             return result;
+        }
+
+        static public double GetSolutionDistance(Solution solution)
+        {
+            double totalDistance = 0;
+            List<int> indexList = solution.solution.ToList();
+            List<List<double>> vectors = solution.vectors;
+            for (int origin = 0; origin < indexList.Count; origin++)
+            {
+                for (int destination = 0; destination < indexList.Count; destination++)
+                {
+                    if (origin != destination)
+                    {
+                        totalDistance += GetDistance(vectors[indexList[origin]], vectors[indexList[destination]]);
+                    }
+                }
+            }
+
+            return totalDistance;
         }
 
         static public double GetDistance(List<double> origin, List<double> target)
