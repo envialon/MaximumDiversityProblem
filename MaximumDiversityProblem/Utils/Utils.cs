@@ -2,18 +2,18 @@
 {
     public class Utils
     {
-        static public List<double> GetCentroid(List<List<double>> availableVectors, HashSet<int> solutionSet)
+        static public List<double> GetCentroid(List<List<double>> vectors, HashSet<int> solutionSet)
         {
             List<int> solutionIndexes = solutionSet.ToList();
-            List<double> result = availableVectors[solutionIndexes[0]];
+            List<double> result = vectors[solutionIndexes[0]];
 
-            result = availableVectors[solutionIndexes[0]];
+            result = vectors[solutionIndexes[0]];
 
             for (int i = 0; i < solutionIndexes.Count; i++)
             {
-                for (int j = 0; j < availableVectors.Count; j++)
+                for (int j = 0; j < vectors.Count; j++)
                 {
-                    result[j] += availableVectors[solutionIndexes[i]][j];
+                    result[j] += vectors[solutionIndexes[i]][j];
                 }
             }
 

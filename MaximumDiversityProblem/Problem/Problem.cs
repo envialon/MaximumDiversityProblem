@@ -62,7 +62,6 @@
             this.dimensionality = int.Parse(lines[1]);
             lines.RemoveRange(0, 2);
             RetrieveVectors(lines);
-            buildDistanceMatrix();
         }
     }
 }

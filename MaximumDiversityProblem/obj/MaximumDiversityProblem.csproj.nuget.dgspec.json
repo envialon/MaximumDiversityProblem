@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\enriq\\Source\\Repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj": {}
+    "C:\\Users\\enriq\\source\\repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\enriq\\Source\\Repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj": {
+    "C:\\Users\\enriq\\source\\repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\enriq\\Source\\Repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj",
+        "projectUniqueName": "C:\\Users\\enriq\\source\\repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj",
         "projectName": "MaximumDiversityProblem",
-        "projectPath": "C:\\Users\\enriq\\Source\\Repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj",
+        "projectPath": "C:\\Users\\enriq\\source\\repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\MaximumDiversityProblem.csproj",
         "packagesPath": "C:\\Users\\enriq\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\enriq\\Source\\Repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\obj\\",
+        "outputPath": "C:\\Users\\enriq\\source\\repos\\MaximumDiversityProblem\\MaximumDiversityProblem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\enriq\\AppData\\Roaming\\NuGet\\NuGet.Config",

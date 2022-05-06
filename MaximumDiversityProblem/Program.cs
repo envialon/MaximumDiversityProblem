@@ -16,12 +16,19 @@ namespace MaximumDiversityProblem
             }
 
             List<Problem> problems = new List<Problem>();
+            List<Solution> solutions = new List<Solution>();
 
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
                 problems.Add(new Problem(filename));
-            }        
+            }
 
+
+            foreach (Problem problem in problems)
+            {
+                Solution solution = AlgorithmManager.SolveGreedy(problem);
+                solutions.Add(solution);
+            }
             
         }
     }
