@@ -3,6 +3,16 @@ namespace MaximumDiversityProblem
 {
     class Program
     {
+        private static void PrintSolutionInfo(List<Solution> solutions)
+        {
+            Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
+            foreach (Solution solution in solutions)
+            {
+                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" 
+                    + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
+            }
+        }
+
         public static void Main(string[] args)
         {
             string path;
@@ -17,6 +27,7 @@ namespace MaximumDiversityProblem
 
             int SOLUTION_SIZE = 6;
 
+
             List<Problem> problems = new List<Problem>();
             List<Solution> greedySolutions = new List<Solution>();
 
@@ -29,9 +40,9 @@ namespace MaximumDiversityProblem
             {
                 greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
                 Console.WriteLine("Greedy solution total distance = " + greedySolutions.Last().totalDistance);
-
             }
 
+            PrintSolutionInfo(greedySolutions);
         }
     }
 }

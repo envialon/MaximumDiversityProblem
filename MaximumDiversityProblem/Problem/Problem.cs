@@ -61,7 +61,7 @@
 
         public void buildFromFile(string filename)
         {
-            this.filename = filename;
+            this.filename = filename.Split("\\").Last();
             List<string> lines = new List<string>(File.ReadAllLines(filename));
             this.numberOfVectors = int.Parse(lines[0]);
             this.dimensionality = int.Parse(lines[1]);
