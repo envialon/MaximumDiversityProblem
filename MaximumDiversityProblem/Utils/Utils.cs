@@ -2,6 +2,7 @@
 {
     public class Utils
     {
+
         static public List<double> GetCentroid(List<List<double>> vectors, HashSet<int> solutionSet)
         {
             List<int> solutionIndexes = solutionSet.ToList();
@@ -55,6 +56,21 @@
             }
 
             return Math.Sqrt(result);
+        }
+
+        static public double GetDistanceToSet(List<List<double>> distanceMatrix, List<int> solutionSet, int target)
+        {
+            double result = 0;
+
+            for (int i = 0; i < solutionSet.Count; i++)
+            {
+                if (solutionSet[i] != target)
+                {
+                    result += distanceMatrix[solutionSet[i]][target];
+                }
+            }
+
+            return result;
         }
     }
 }
