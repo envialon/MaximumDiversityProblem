@@ -26,10 +26,11 @@ namespace MaximumDiversityProblem
             }
 
             int SOLUTION_SIZE = 6;
-
+            int RCL_SIZE = 2;
 
             List<Problem> problems = new List<Problem>();
             List<Solution> greedySolutions = new List<Solution>();
+            List<Solution> graspSolutions = new List<Solution>();   
 
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
@@ -39,9 +40,13 @@ namespace MaximumDiversityProblem
             foreach (Problem problem in problems)
             {
                 greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
+                graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, SOLUTION_SIZE, RCL_SIZE));
             }
 
+            Console.WriteLine("GREEDY SOLUTIONS:");
             PrintSolutionInfo(greedySolutions);
+            Console.WriteLine("GRASP SOLUTIONS:");
+            PrintSolutionInfo(graspSolutions);
         }
     }
 }

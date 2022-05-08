@@ -23,6 +23,7 @@
 
         public Solution(Solution solution)
         {
+            this.id = solution.id;
             this.dimensionality = solution.dimensionality;
             this.rclSize = solution.rclSize;
             this.vectors = new List<List<double>>(solution.vectors);
