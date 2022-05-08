@@ -39,7 +39,6 @@ namespace MaximumDiversityProblem
             foreach (Problem problem in problems)
             {
                 greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
-                Console.WriteLine("Greedy solution total distance = " + greedySolutions.Last().totalDistance);
             }
 
             PrintSolutionInfo(greedySolutions);

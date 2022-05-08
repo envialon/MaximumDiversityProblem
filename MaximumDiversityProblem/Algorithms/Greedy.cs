@@ -1,4 +1,5 @@
-﻿namespace MaximumDiversityProblem
+﻿using System.Diagnostics;
+namespace MaximumDiversityProblem
 {
     public class Greedy
     {
@@ -34,6 +35,7 @@
 
         static public Solution Solve(Problem problem, int solutionSize, int rclSize)
         {
+            Stopwatch sw = new Stopwatch();
             Random rand = new Random();
             Solution solution = new Solution(problem);            
             List<List<double>> vectors = problem.vectors;
@@ -41,7 +43,8 @@
 
             List<double> centroid ;
             List<int> rcl;
-            
+
+            sw.Start();
             int indexToInsert = 0;
             solution.solution.Add(indexToInsert);
             availableVectors.Remove(indexToInsert);         
@@ -54,7 +57,9 @@
                 solution.solution.Add(indexToInsert);
                 availableVectors.Remove(indexToInsert);
             }
+            sw.Stop();
 
+            solution.elapsedMilliseconds = sw.ElapsedMilliseconds;
             solution.rclSize = rclSize;
             solution.discarted = new HashSet<int>(availableVectors);
             solution.totalDistance = Utils.GetSolutionDistance(solution);
