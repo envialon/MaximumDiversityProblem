@@ -23,8 +23,8 @@
                     { break; }
                     int temp = rcl[j];
                     double distTemp = rclDistanceToCentroid[j];
-                    rcl.Insert(j, candidateIndex);
-                    rclDistanceToCentroid.Insert(j, candidateDistance);
+                    rcl[j] = candidateIndex;
+                    rclDistanceToCentroid[j] =  candidateDistance;
                     candidateIndex = temp;
                     candidateDistance = distTemp;
                 }
@@ -38,8 +38,8 @@
             Solution solution = new Solution(problem);
             List<List<double>> vectors = problem.vectors;
             HashSet<int> availableVectors = new HashSet<int>(Enumerable.Range(0, vectors.Count).ToList());
-            
-            int randomToInsert = rand.Next(0, vectors.Count);
+
+            int randomToInsert = 0;//rand.Next(0, vectors.Count);
             solution.solution.Add(randomToInsert);
             availableVectors.Remove(randomToInsert);
 
