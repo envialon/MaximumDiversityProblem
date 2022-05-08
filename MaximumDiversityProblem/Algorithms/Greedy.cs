@@ -35,25 +35,29 @@
         static public Solution Solve(Problem problem, int solutionSize, int rclSize)
         {
             Random rand = new Random();
-            Solution solution = new Solution(problem);
+            Solution solution = new Solution(problem);            
             List<List<double>> vectors = problem.vectors;
             HashSet<int> availableVectors = new HashSet<int>(Enumerable.Range(0, vectors.Count).ToList());
 
-            int randomToInsert = 0;//rand.Next(0, vectors.Count);
-            solution.solution.Add(randomToInsert);
-            availableVectors.Remove(randomToInsert);
-
+            List<double> centroid ;
             List<int> rcl;
+            
+            int indexToInsert = 0;
+            solution.solution.Add(indexToInsert);
+            availableVectors.Remove(indexToInsert);         
 
             for (int i = 1; i < solutionSize; i++)
             {
-                List<double> centroid = Utils.GetCentroid(vectors, solution.solution);
-                 rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
-                randomToInsert = rcl[rand.Next(0, rcl.Count)];
-                solution.solution.Add(randomToInsert);
-                availableVectors.Remove(randomToInsert);
+                centroid = Utils.GetCentroid(vectors, solution.solution);
+                rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
+                indexToInsert = rcl[rand.Next(0, rcl.Count)];
+                solution.solution.Add(indexToInsert);
+                availableVectors.Remove(indexToInsert);
             }
 
+            solution.rclSize = rclSize;
+            solution.discarted = new HashSet<int>(availableVectors);
+            solution.totalDistance = Utils.GetSolutionDistance(solution);
             return solution;
         }
     }

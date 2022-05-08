@@ -56,6 +56,5 @@
 
             return Math.Sqrt(result);
         }
-
     }
 }

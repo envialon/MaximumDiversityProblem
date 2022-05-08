@@ -15,16 +15,23 @@ namespace MaximumDiversityProblem
                 path = "input_files\\";
             }
 
+            int SOLUTION_SIZE = 6;
+
             List<Problem> problems = new List<Problem>();
-            List<Solution> solutions = new List<Solution>();
+            List<Solution> greedySolutions = new List<Solution>();
 
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
                 problems.Add(new Problem(filename));
             }
 
-            Solution solution = AlgorithmManager.SolveGreedy(problems[0], 6);
-            Console.WriteLine("Greedy solution total distance = " + Utils.GetSolutionDistance(solution));
+            foreach (Problem problem in problems)
+            {
+                greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
+                Console.WriteLine("Greedy solution total distance = " + greedySolutions.Last().totalDistance);
+
+            }
+
         }
     }
 }

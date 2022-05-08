@@ -5,12 +5,14 @@
         public string filename = "";
         public int numberOfVectors = -1;
         public int dimensionality = -1;
+        public int solutionSize = -1;
         public List<List<double>> vectors = new List<List<double>>();
         public List<List<double>> distanceMatrix = new List<List<double>>();
 
 
-        public Problem(string filename, int numberOfVectors, int dimensionality, List<List<double>> vectors)
+        public Problem(string filename, int numberOfVectors, int dimensionality, int solutionSize, List<List<double>> vectors)
         {
+            this.solutionSize = solutionSize;
             this.filename = filename;
             this.numberOfVectors = numberOfVectors;
             this.dimensionality = dimensionality;
@@ -21,14 +23,16 @@
         {
             for (int i = 0; i < numberOfVectors; i++)
             {
+                distanceMatrix.Add(new List<double>());
                 for (int j = 0; j < numberOfVectors; j++)
                 {
+                    
                     if(i == j) {
-                        distanceMatrix[i][j] = int.MaxValue;
+                        distanceMatrix[i].Add(int.MaxValue);
                     }
                     else
                     {
-                        distanceMatrix[i][j] = Utils.GetDistance(vectors[i], vectors[j]);
+                        distanceMatrix[i].Add(Utils.GetDistance(vectors[i], vectors[j]));
                     }
                 }
             }
@@ -38,11 +42,12 @@
         {
             buildFromFile(filename);
         }
-
+        
         private void RetrieveVectors(List<string> lines)
         {
-            foreach (string line in lines)
+            for (int l = 0; l < numberOfVectors; l++)
             {
+                string line = lines[l];
                 string processed = line.Replace(",", ".");
                 string[] splitted = processed.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
                 List<double> vector = new List<double>();
@@ -62,6 +67,7 @@
             this.dimensionality = int.Parse(lines[1]);
             lines.RemoveRange(0, 2);
             RetrieveVectors(lines);
+            buildDistanceMatrix();
         }
     }
 }

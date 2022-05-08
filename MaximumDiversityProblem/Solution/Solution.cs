@@ -3,9 +3,12 @@
     public class Solution
     {
         public List<List<double>> vectors = new List<List<double>>();
+        public List<List<double>> distanceMatrix = new List<List<double>>();
         public HashSet<int> solution = new HashSet<int>();
-        int dimensionality = -1;
-        int rclSize = -1;
+        public HashSet<int> discarted = new HashSet<int>();
+        public double totalDistance = -1; 
+        public int dimensionality = -1;
+        public int rclSize = -1;
 
 
         public Solution(Problem problem, int rclSize = -1)
@@ -13,12 +16,18 @@
             dimensionality = problem.dimensionality;
             vectors = problem.vectors;
             this.rclSize = rclSize;
+            this.distanceMatrix = problem.distanceMatrix;
         }
 
-        public Solution(List<List<double>> vectors, int dimensionality)
+        public Solution(Solution solution)
         {
-            this.vectors = vectors;
-            this.dimensionality = dimensionality;
+            this.dimensionality = solution.dimensionality;
+            this.rclSize = solution.rclSize;
+            this.vectors = new List<List<double>>(solution.vectors);
+            this.solution = new HashSet<int>(solution.solution);
+            this.distanceMatrix = new List<List<double>>(solution.distanceMatrix);
+            this.discarted = new HashSet<int>(solution.discarted);
+            this.totalDistance = solution.totalDistance;
         }
 
         public void add(int index)
