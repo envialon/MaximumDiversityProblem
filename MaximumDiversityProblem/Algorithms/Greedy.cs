@@ -5,14 +5,16 @@
 
         static private List<int> MakeRCL(List<List<double>> vectors, HashSet<int> vectorHash, List<double> centroid, int rclSize)
         {
-            List<int> rcl = Enumerable.Repeat(0, rclSize).ToList();
-            List<double> rclDistanceToCentroid = Enumerable.Repeat(double.MaxValue, rclSize).ToList();
+
             List<int> availableVectors = vectorHash.ToList();
+            List<int> rcl = Enumerable.Repeat(availableVectors[0], rclSize).ToList();
+            List<double> rclDistanceToCentroid = Enumerable.Repeat(double.MaxValue, rclSize).ToList();
 
             for (int i = 0; i < availableVectors.Count; i++)
             {
-                List<double> candidate = vectors[availableVectors[i]];
+
                 int candidateIndex = availableVectors[i];
+                List<double> candidate = vectors[candidateIndex];
                 double candidateDistance = Utils.GetDistance(centroid, candidate);
 
                 for (int j = 0; j < rclSize; j++)
@@ -41,13 +43,15 @@
             solution.solution.Add(randomToInsert);
             availableVectors.Remove(randomToInsert);
 
+            List<int> rcl;
+
             for (int i = 1; i < solutionSize; i++)
             {
                 List<double> centroid = Utils.GetCentroid(vectors, solution.solution);
-                List<int> rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
-                int randomToAdd = rcl[rand.Next(0, rcl.Count)];
-                solution.solution.Add(randomToAdd);
-                availableVectors.Remove(randomToAdd);
+                 rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
+                randomToInsert = rcl[rand.Next(0, rcl.Count)];
+                solution.solution.Add(randomToInsert);
+                availableVectors.Remove(randomToInsert);
             }
 
             return solution;
