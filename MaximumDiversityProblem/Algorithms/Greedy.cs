@@ -25,35 +25,29 @@
                     rclDistanceToCentroid.Insert(j, candidateDistance);
                     candidateIndex = temp;
                     candidateDistance = distTemp;
-
                 }
             }
             return rcl;
         }
 
-        static public Solution Solve(Problem problem, int rclSize)
+        static public Solution Solve(Problem problem, int solutionSize, int rclSize)
         {
             Random rand = new Random();
             Solution solution = new Solution(problem);
             List<List<double>> vectors = problem.vectors;
             HashSet<int> availableVectors = new HashSet<int>(Enumerable.Range(0, vectors.Count).ToList());
-            int numberOfVectors = problem.numberOfVectors;
-
+            
             int randomToInsert = rand.Next(0, vectors.Count);
             solution.solution.Add(randomToInsert);
             availableVectors.Remove(randomToInsert);
 
-            for (int i = 0; i < numberOfVectors; i++)
+            for (int i = 1; i < solutionSize; i++)
             {
                 List<double> centroid = Utils.GetCentroid(vectors, solution.solution);
                 List<int> rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
-                if (rcl.Count <= 0)
-                {
-                    break;
-                }
-                int indexOfVector = rcl[rand.Next(0, rcl.Count)];
-                solution.solution.Add(indexOfVector);
-                availableVectors.Remove(indexOfVector);
+                int randomToAdd = rcl[rand.Next(0, rcl.Count)];
+                solution.solution.Add(randomToAdd);
+                availableVectors.Remove(randomToAdd);
             }
 
             return solution;

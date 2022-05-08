@@ -23,7 +23,7 @@ namespace MaximumDiversityProblem
                 problems.Add(new Problem(filename));
             }
 
-            Solution solution = AlgorithmManager.SolveGreedy(problems[0]);
+            Solution solution = AlgorithmManager.SolveGreedy(problems[0], 6);
             Console.WriteLine("Greedy solution total distance = " + Utils.GetSolutionDistance(solution));
         }
     }

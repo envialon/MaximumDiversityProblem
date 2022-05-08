@@ -30,5 +30,11 @@
         {
             solution.Remove(index);
         }
+
+        public string GetTable()
+        {
+            return "";
+        }
+
     }
 }
