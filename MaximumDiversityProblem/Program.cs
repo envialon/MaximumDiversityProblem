@@ -49,7 +49,7 @@ namespace MaximumDiversityProblem
                 path = "input_files\\";
             }
 
-            int SOLUTION_SIZE = 6;
+            int SOLUTION_SIZE = 5;
             int RCL_SIZE = 2;
 
             List<Problem> problems = new List<Problem>();

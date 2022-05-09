@@ -7,7 +7,7 @@ namespace MaximumDiversityProblem
         {
             Stopwatch sw = new Stopwatch();
             Solution bestSolution = new Solution(problem);
-            bestSolution.totalDistance = double.MaxValue;
+            bestSolution.totalDistance = double.MinValue;
             int iterationsWithoutImprovement = 1000;
 
             sw.Start();

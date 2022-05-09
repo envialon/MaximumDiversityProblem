@@ -9,7 +9,7 @@ namespace MaximumDiversityProblem
 
             List<int> availableVectors = vectorHash.ToList();
             List<int> rcl = Enumerable.Repeat(availableVectors[0], rclSize).ToList();
-            List<double> rclDistanceToCentroid = Enumerable.Repeat(double.MaxValue, rclSize).ToList();
+            List<double> rclDistanceToCentroid = Enumerable.Repeat(double.MinValue, rclSize).ToList();
 
             for (int i = 0; i < availableVectors.Count; i++)
             {
