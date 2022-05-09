@@ -53,7 +53,7 @@
                 result += (origin[i] - target[i]) * (origin[i] - target[i]);
             }
 
-            return Math.Sqrt(result);
+            return Math.Round(Math.Sqrt(result), 2);
         }
 
         static public double GetDistanceToSet(List<List<double>> distanceMatrix, HashSet<int> s, int target)
@@ -62,14 +62,27 @@
             List<int> solutionList = s.ToList();
             for (int i = 0; i < solutionList.Count; i++)
             {
-                if (solutionList[i] != target)
-                {
-                    result += distanceMatrix[target][solutionList[i]];
-                }
+
+                result += distanceMatrix[target][solutionList[i]];
+
             }
 
             return result;
         }
+        //static public double GetDistanceToSet(List<List<double>> vectors, HashSet<int> s, int target)
+        //{
+        //    double result = 0;
+        //    List<int> solutionList = s.ToList();
+        //    for (int i = 0; i < solutionList.Count; i++)
+        //    {
+        //        if (solutionList[i] != target)
+        //        {
+        //            result += GetDistance(vectors[target], vectors[solutionList[i]]);
+        //        }
+        //    }
+
+        //    return result;
+        //}
 
         static public double GetDistanceToSet(List<List<double>> distanceMatrix, List<int> solutionList, int target)
         {

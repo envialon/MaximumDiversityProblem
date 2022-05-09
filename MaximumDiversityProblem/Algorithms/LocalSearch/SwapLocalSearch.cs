@@ -21,7 +21,7 @@
                 {
                     int sCandidate = solution[sIndex];
                     double distanceAfterRemove = bestDistance - Utils.GetDistanceToSet(distanceMatrix, solution, sCandidate);
-
+               
                     for (int dIndex = 0; dIndex < discarted.Count; dIndex++)
                     {
                         int dCandidate = discarted[dIndex];
@@ -44,8 +44,7 @@
                     solution.Add(dToSwap);
                     discarted.Remove(dToSwap);
                     discarted.Add(sToSwap);
-                }
-                
+                }                
             }
 
             Solution bestSolution = new Solution(s);

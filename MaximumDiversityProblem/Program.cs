@@ -4,6 +4,21 @@ namespace MaximumDiversityProblem
     class Program
     {
 
+        private static void Test2(Solution solution)
+        {
+            double cost = solution.totalDistance;
+            List<int> slist = solution.solution.ToList();
+
+            double afterRemoval = solution.totalDistance - (float)Utils.GetDistanceToSet(solution.distanceMatrix, solution.solution, 3);
+            solution.solution.Remove(3);
+
+            double real = Utils.GetSolutionDistance(solution);
+
+
+        }
+
+
+
         private static void PrintSolutionVectors(Solution solution)
         {
             Console.WriteLine("{ ");
@@ -61,7 +76,11 @@ namespace MaximumDiversityProblem
                 problems.Add(new Problem(filename));
             }
 
-
+            
+            Solution s = AlgorithmManager.SolveGreedy(problems[0], SOLUTION_SIZE);
+            Test2(s);
+            
+            
             foreach (Problem problem in problems)
             {
                 greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
@@ -72,7 +91,6 @@ namespace MaximumDiversityProblem
             PrintSolutionInfo(greedySolutions);
             Console.WriteLine("GRASP SOLUTIONS:");
             PrintSolutionInfo(graspSolutions);
-            PrintSolutionVectors(greedySolutions[0]);
         }
     }
 }

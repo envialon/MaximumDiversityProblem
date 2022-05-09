@@ -28,7 +28,7 @@
                 {
                     
                     if(i == j) {
-                        distanceMatrix[i].Add(int.MaxValue);
+                        distanceMatrix[i].Add(0);
                     }
                     else
                     {
