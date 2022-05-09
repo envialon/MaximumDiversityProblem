@@ -20,8 +20,8 @@ namespace MaximumDiversityProblem
 
                 for (int j = 0; j < rclSize; j++)
                 {
-                    if (candidateDistance > rclDistanceToCentroid[j])
-                    { break; }
+                    if (candidateDistance <= rclDistanceToCentroid[j])
+                    { continue; }
                     int temp = rcl[j];
                     double distTemp = rclDistanceToCentroid[j];
                     rcl[j] = candidateIndex;
@@ -52,7 +52,7 @@ namespace MaximumDiversityProblem
 
                 solution.solution.Add(indexToInsert);
                 availableVectors.Remove(indexToInsert);
-                 centroid = Utils.GetCentroid(vectors, solution.solution);
+                centroid = Utils.GetCentroid(vectors, solution.solution);
                 rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
             }
             sw.Stop();
