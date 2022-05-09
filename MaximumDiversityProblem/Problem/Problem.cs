@@ -25,8 +25,7 @@
             {
                 distanceMatrix.Add(new List<float>());
                 for (int j = 0; j < numberOfVectors; j++)
-                {
-                    
+                {                    
                     if(i == j) {
                         distanceMatrix[i].Add(0);
                     }

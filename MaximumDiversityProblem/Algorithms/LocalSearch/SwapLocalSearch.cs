@@ -17,17 +17,18 @@
             while (foundSolution)
             {
                 foundSolution = false;
+                float initialDistance = bestDistance;
                 for (int sIndex = 0; sIndex < solution.Count; sIndex++)
                 {
                     int sCandidate = solution[sIndex];
-                    float distanceAfterRemove = bestDistance - Utils.GetDistanceToSet(distanceMatrix, solution, sCandidate);
-               
+                    float distanceAfterRemove = initialDistance - Utils.GetDistanceToSet(distanceMatrix, solution, sCandidate);
+                    solution.Remove(sCandidate);
+
                     for (int dIndex = 0; dIndex < discarted.Count; dIndex++)
                     {
                         int dCandidate = discarted[dIndex];
-                        solution.Remove(sCandidate);
                         float currentDistance = distanceAfterRemove + Utils.GetDistanceToSet(distanceMatrix, solution, dCandidate);
-                        solution.Add(sCandidate);
+
                         if (currentDistance > bestDistance)
                         {
                             bestDistance = currentDistance;
@@ -36,15 +37,16 @@
                             foundSolution = true;
                         }
                     }
+                    solution.Add(sCandidate);
                 }
 
-                if(foundSolution)
+                if (foundSolution)
                 {
                     solution.Remove(sToSwap);
                     solution.Add(dToSwap);
                     discarted.Remove(dToSwap);
                     discarted.Add(sToSwap);
-                }                
+                }
             }
 
             Solution bestSolution = new Solution(s);

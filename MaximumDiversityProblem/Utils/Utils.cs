@@ -41,7 +41,7 @@
                 }
             }
 
-            return totalDistance;
+            return (float)Math.Round(totalDistance, 2);
         }
 
         static public float GetDistance(List<float> origin, List<float> target)
@@ -62,12 +62,10 @@
             List<int> solutionList = s.ToList();
             for (int i = 0; i < solutionList.Count; i++)
             {
-
                 result += distanceMatrix[target][solutionList[i]];
-
             }
 
-            return result;
+            return (float)Math.Round(result, 2);
         }
         //static public float GetDistanceToSet(List<List<float>> vectors, HashSet<int> s, int target)
         //{
@@ -89,13 +87,10 @@
             float result = 0;
             for (int i = 0; i < solutionList.Count; i++)
             {
-                if (solutionList[i] != target)
-                {
-                    result += distanceMatrix[target][solutionList[i]];
-                }
+                result += distanceMatrix[target][solutionList[i]];
             }
 
-            return result;
+            return (float)Math.Round(result, 2);
         }
     }
 }
