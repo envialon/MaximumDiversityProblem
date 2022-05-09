@@ -4,26 +4,26 @@ namespace MaximumDiversityProblem
     public class Greedy
     {
 
-        static private List<int> MakeRCL(List<List<double>> vectors, HashSet<int> vectorHash, List<double> centroid, int rclSize)
+        static private List<int> MakeRCL(List<List<float>> vectors, HashSet<int> vectorHash, List<float> centroid, int rclSize)
         {
 
             List<int> availableVectors = vectorHash.ToList();
             List<int> rcl = Enumerable.Repeat(availableVectors[0], rclSize).ToList();
-            List<double> rclDistanceToCentroid = Enumerable.Repeat(double.MinValue, rclSize).ToList();
+            List<float> rclDistanceToCentroid = Enumerable.Repeat(float.MinValue, rclSize).ToList();
 
             for (int i = 0; i < availableVectors.Count; i++)
             {
 
                 int candidateIndex = availableVectors[i];
-                List<double> candidate = vectors[candidateIndex];
-                double candidateDistance = Utils.GetDistance(centroid, candidate);
+                List<float> candidate = vectors[candidateIndex];
+                float candidateDistance = Utils.GetDistance(centroid, candidate);
 
                 for (int j = 0; j < rclSize; j++)
                 {
                     if (candidateDistance <= rclDistanceToCentroid[j])
                     { continue; }
                     int temp = rcl[j];
-                    double distTemp = rclDistanceToCentroid[j];
+                    float distTemp = rclDistanceToCentroid[j];
                     rcl[j] = candidateIndex;
                     rclDistanceToCentroid[j] = candidateDistance;
                     candidateIndex = temp;
@@ -38,10 +38,10 @@ namespace MaximumDiversityProblem
             Stopwatch sw = new Stopwatch();
             Random rand = new Random();
             Solution solution = new Solution(problem);
-            List<List<double>> vectors = problem.vectors;
+            List<List<float>> vectors = problem.vectors;
             HashSet<int> availableVectors = new HashSet<int>(Enumerable.Range(0, vectors.Count).ToList());
 
-            List<double> centroid = Utils.GetCentroid(vectors, availableVectors);
+            List<float> centroid = Utils.GetCentroid(vectors, availableVectors);
             List<int> rcl;
 
 

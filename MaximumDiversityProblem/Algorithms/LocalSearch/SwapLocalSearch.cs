@@ -4,13 +4,13 @@
     {
         public static Solution Search(Solution s)
         {
-            List<List<double>> distanceMatrix = s.distanceMatrix;
+            List<List<float>> distanceMatrix = s.distanceMatrix;
             List<int> solution = new List<int>(s.solution);
             List<int> discarted = new List<int>(s.discarted);
 
             int sToSwap = -1;
             int dToSwap = -1;
-            double bestDistance = s.totalDistance;
+            float bestDistance = s.totalDistance;
 
 
             bool foundSolution = true;
@@ -20,13 +20,13 @@
                 for (int sIndex = 0; sIndex < solution.Count; sIndex++)
                 {
                     int sCandidate = solution[sIndex];
-                    double distanceAfterRemove = bestDistance - Utils.GetDistanceToSet(distanceMatrix, solution, sCandidate);
+                    float distanceAfterRemove = bestDistance - Utils.GetDistanceToSet(distanceMatrix, solution, sCandidate);
                
                     for (int dIndex = 0; dIndex < discarted.Count; dIndex++)
                     {
                         int dCandidate = discarted[dIndex];
                         solution.Remove(sCandidate);
-                        double currentDistance = distanceAfterRemove + Utils.GetDistanceToSet(distanceMatrix, solution, dCandidate);
+                        float currentDistance = distanceAfterRemove + Utils.GetDistanceToSet(distanceMatrix, solution, dCandidate);
                         solution.Add(sCandidate);
                         if (currentDistance > bestDistance)
                         {

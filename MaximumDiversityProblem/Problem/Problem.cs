@@ -6,11 +6,11 @@
         public int numberOfVectors = -1;
         public int dimensionality = -1;
         public int solutionSize = -1;
-        public List<List<double>> vectors = new List<List<double>>();
-        public List<List<double>> distanceMatrix = new List<List<double>>();
+        public List<List<float>> vectors = new List<List<float>>();
+        public List<List<float>> distanceMatrix = new List<List<float>>();
 
 
-        public Problem(string filename, int numberOfVectors, int dimensionality, int solutionSize, List<List<double>> vectors)
+        public Problem(string filename, int numberOfVectors, int dimensionality, int solutionSize, List<List<float>> vectors)
         {
             this.solutionSize = solutionSize;
             this.filename = filename;
@@ -23,7 +23,7 @@
         {
             for (int i = 0; i < numberOfVectors; i++)
             {
-                distanceMatrix.Add(new List<double>());
+                distanceMatrix.Add(new List<float>());
                 for (int j = 0; j < numberOfVectors; j++)
                 {
                     
@@ -50,10 +50,10 @@
                 string line = lines[l];
                 string processed = line.Replace(",", ".");
                 string[] splitted = processed.Split(new char[0], StringSplitOptions.RemoveEmptyEntries);
-                List<double> vector = new List<double>();
+                List<float> vector = new List<float>();
                 for (int i = 0; i < splitted.Length; i++)
                 {
-                    vector.Add(double.Parse(splitted[i]));
+                    vector.Add(float.Parse(splitted[i]));
                 }
                 vectors.Add(vector);
             }

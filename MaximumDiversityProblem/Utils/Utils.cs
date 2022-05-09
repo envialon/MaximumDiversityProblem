@@ -3,16 +3,16 @@
     public class Utils
     {
 
-        static public List<double> GetCentroid(List<List<double>> vectors, HashSet<int> solutionSet)
+        static public List<float> GetCentroid(List<List<float>> vectors, HashSet<int> solutionSet)
         {
             List<int> solutionIndexes = solutionSet.ToList();
-            List<double> result = vectors[solutionIndexes[0]];
+            List<float> result = vectors[solutionIndexes[0]];
 
-            result = new List<double>(vectors[solutionIndexes[0]]);
+            result = new List<float>(vectors[solutionIndexes[0]]);
 
             for (int i = 1; i < solutionIndexes.Count; i++)
             {
-                List<double> currentVector = vectors[solutionIndexes[i]];
+                List<float> currentVector = vectors[solutionIndexes[i]];
                 for (int j = 0; j < currentVector.Count; j++)
                 {
                     result[j] += currentVector[j];
@@ -27,11 +27,11 @@
             return result;
         }
 
-        static public double GetSolutionDistance(Solution solution)
+        static public float GetSolutionDistance(Solution solution)
         {
-            double totalDistance = 0;
+            float totalDistance = 0;
             List<int> indexList = solution.solution.ToList();
-            List<List<double>> vectors = solution.vectors;
+            List<List<float>> vectors = solution.vectors;
 
             for (int origin = 0; origin < indexList.Count; origin++)
             {
@@ -44,21 +44,21 @@
             return totalDistance;
         }
 
-        static public double GetDistance(List<double> origin, List<double> target)
+        static public float GetDistance(List<float> origin, List<float> target)
         {
-            double result = 0;
+            float result = 0;
 
             for (int i = 0; i < origin.Count; i++)
             {
                 result += (origin[i] - target[i]) * (origin[i] - target[i]);
             }
 
-            return Math.Round(Math.Sqrt(result), 2);
+            return (float)Math.Round(Math.Sqrt(result), 2);
         }
 
-        static public double GetDistanceToSet(List<List<double>> distanceMatrix, HashSet<int> s, int target)
+        static public float GetDistanceToSet(List<List<float>> distanceMatrix, HashSet<int> s, int target)
         {
-            double result = 0;
+            float result = 0;
             List<int> solutionList = s.ToList();
             for (int i = 0; i < solutionList.Count; i++)
             {
@@ -69,9 +69,9 @@
 
             return result;
         }
-        //static public double GetDistanceToSet(List<List<double>> vectors, HashSet<int> s, int target)
+        //static public float GetDistanceToSet(List<List<float>> vectors, HashSet<int> s, int target)
         //{
-        //    double result = 0;
+        //    float result = 0;
         //    List<int> solutionList = s.ToList();
         //    for (int i = 0; i < solutionList.Count; i++)
         //    {
@@ -84,9 +84,9 @@
         //    return result;
         //}
 
-        static public double GetDistanceToSet(List<List<double>> distanceMatrix, List<int> solutionList, int target)
+        static public float GetDistanceToSet(List<List<float>> distanceMatrix, List<int> solutionList, int target)
         {
-            double result = 0;
+            float result = 0;
             for (int i = 0; i < solutionList.Count; i++)
             {
                 if (solutionList[i] != target)

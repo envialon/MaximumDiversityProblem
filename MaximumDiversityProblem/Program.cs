@@ -6,13 +6,13 @@ namespace MaximumDiversityProblem
 
         private static void Test2(Solution solution)
         {
-            double cost = solution.totalDistance;
+            float cost = solution.totalDistance;
             List<int> slist = solution.solution.ToList();
 
-            double afterRemoval = solution.totalDistance - (float)Utils.GetDistanceToSet(solution.distanceMatrix, solution.solution, 3);
+            float afterRemoval = solution.totalDistance - (float)Utils.GetDistanceToSet(solution.distanceMatrix, solution.solution, 3);
             solution.solution.Remove(3);
 
-            double real = Utils.GetSolutionDistance(solution);
+            float real = Utils.GetSolutionDistance(solution);
 
 
         }
@@ -25,7 +25,7 @@ namespace MaximumDiversityProblem
             foreach (int index in solution.solution.ToList())
             {
                 Console.Write("( ");
-                foreach ( double coord in solution.vectors[index])
+                foreach ( float coord in solution.vectors[index])
                 {
                     Console.Write(coord.ToString("0.00") + " ");
                 }
@@ -36,14 +36,14 @@ namespace MaximumDiversityProblem
 
         private static void PrintSolutionInfo(List<Solution> solutions)
         {
-            double solutionTest = Utils.GetSolutionDistance(solutions[0]);
+            float solutionTest = Utils.GetSolutionDistance(solutions[0]);
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
             foreach (Solution solution in solutions)
             {
                 Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t"
                     + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
 
-                double solutionDist = Utils.GetSolutionDistance(solution);
+                float solutionDist = Utils.GetSolutionDistance(solution);
 
                 if (solution.totalDistance.ToString("0.00") != Utils.GetSolutionDistance(solution).ToString("0.00"))
                 {

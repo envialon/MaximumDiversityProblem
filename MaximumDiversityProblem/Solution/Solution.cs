@@ -2,12 +2,12 @@
 {
     public class Solution
     {
-        public List<List<double>> vectors = new List<List<double>>();
-        public List<List<double>> distanceMatrix = new List<List<double>>();
+        public List<List<float>> vectors = new List<List<float>>();
+        public List<List<float>> distanceMatrix = new List<List<float>>();
         public HashSet<int> solution = new HashSet<int>();
         public HashSet<int> discarted = new HashSet<int>();
         public long elapsedMilliseconds = -1;
-        public double totalDistance = -1;
+        public float totalDistance = -1;
         public int dimensionality = -1;
         public int rclSize = -1;
         public string id = "undefined";
@@ -15,9 +15,9 @@
         public Solution(Problem problem, int rclSize = -1)
         {
             dimensionality = problem.dimensionality;
-            vectors = new List<List<double>>(problem.vectors);
+            vectors = new List<List<float>>(problem.vectors);
             this.rclSize = rclSize;
-            this.distanceMatrix = new List<List<double>>(problem.distanceMatrix);
+            this.distanceMatrix = new List<List<float>>(problem.distanceMatrix);
             this.id = problem.filename;
         }
 
@@ -26,9 +26,9 @@
             this.id = solution.id;
             this.dimensionality = solution.dimensionality;
             this.rclSize = solution.rclSize;
-            this.vectors = new List<List<double>>(solution.vectors);
+            this.vectors = new List<List<float>>(solution.vectors);
             this.solution = new HashSet<int>(solution.solution);
-            this.distanceMatrix = new List<List<double>>(solution.distanceMatrix);
+            this.distanceMatrix = new List<List<float>>(solution.distanceMatrix);
             this.discarted = new HashSet<int>(solution.discarted);
             this.totalDistance = solution.totalDistance;
         }
