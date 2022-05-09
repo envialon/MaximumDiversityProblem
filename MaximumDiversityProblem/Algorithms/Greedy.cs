@@ -25,7 +25,7 @@ namespace MaximumDiversityProblem
                     int temp = rcl[j];
                     double distTemp = rclDistanceToCentroid[j];
                     rcl[j] = candidateIndex;
-                    rclDistanceToCentroid[j] =  candidateDistance;
+                    rclDistanceToCentroid[j] = candidateDistance;
                     candidateIndex = temp;
                     candidateDistance = distTemp;
                 }
@@ -37,32 +37,32 @@ namespace MaximumDiversityProblem
         {
             Stopwatch sw = new Stopwatch();
             Random rand = new Random();
-            Solution solution = new Solution(problem);            
+            Solution solution = new Solution(problem);
             List<List<double>> vectors = problem.vectors;
             HashSet<int> availableVectors = new HashSet<int>(Enumerable.Range(0, vectors.Count).ToList());
 
-            List<double> centroid ;
-            List<int> rcl;
+            List<double> centroid = Utils.GetCentroid(vectors, availableVectors);
+            List<int> rcl = MakeRCL(vectors, availableVectors, centroid, rclSize); ;
 
+            double distance = 0;
             sw.Start();
-            int indexToInsert = 0;
-            solution.solution.Add(indexToInsert);
-            availableVectors.Remove(indexToInsert);         
 
-            for (int i = 1; i < solutionSize; i++)
+            for (int i = 0; i < solutionSize; i++)
             {
-                centroid = Utils.GetCentroid(vectors, solution.solution);
-                rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
-                indexToInsert = rcl[rand.Next(0, rcl.Count)];
+                int indexToInsert = rcl[rand.Next(0, rcl.Count)];
+
                 solution.solution.Add(indexToInsert);
                 availableVectors.Remove(indexToInsert);
+                distance += Utils.GetDistanceToSet(problem.distanceMatrix, solution.solution, indexToInsert);
+                centroid = Utils.GetCentroid(vectors, solution.solution);
+                rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
             }
             sw.Stop();
 
+            solution.totalDistance = distance;
             solution.elapsedMilliseconds = sw.ElapsedMilliseconds;
             solution.rclSize = rclSize;
             solution.discarted = new HashSet<int>(availableVectors);
-            solution.totalDistance = Utils.GetSolutionDistance(solution);
             return solution;
         }
     }

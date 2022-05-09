@@ -10,6 +10,10 @@ namespace MaximumDiversityProblem
             {
                 Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" 
                     + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
+                if(solution.totalDistance != Utils.GetSolutionDistance(solution))
+                {
+                    Console.WriteLine("ERROR: correct distance is " + Utils.GetSolutionDistance(solution));
+                }
             }
         }
 

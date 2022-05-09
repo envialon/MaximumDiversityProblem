@@ -34,12 +34,9 @@
             List<List<double>> vectors = solution.vectors;
             for (int origin = 0; origin < indexList.Count; origin++)
             {
-                for (int destination = 0; destination < indexList.Count; destination++)
+                for (int destination = origin + 1; destination < indexList.Count; destination++)
                 {
-                    if (origin != destination)
-                    {
-                        totalDistance += GetDistance(vectors[indexList[origin]], vectors[indexList[destination]]);
-                    }
+                    totalDistance += GetDistance(vectors[indexList[origin]], vectors[indexList[destination]]);
                 }
             }
 
@@ -58,15 +55,29 @@
             return Math.Sqrt(result);
         }
 
-        static public double GetDistanceToSet(List<List<double>> distanceMatrix, List<int> solutionSet, int target)
+        static public double GetDistanceToSet(List<List<double>> distanceMatrix, HashSet<int> s, int target)
         {
             double result = 0;
-
-            for (int i = 0; i < solutionSet.Count; i++)
+            List<int> solutionList = s.ToList();
+            for (int i = 0; i < solutionList.Count; i++)
             {
-                if (solutionSet[i] != target)
+                if (solutionList[i] != target)
                 {
-                    result += distanceMatrix[solutionSet[i]][target];
+                    result += distanceMatrix[solutionList[i]][target];
+                }
+            }
+
+            return result;
+        }
+
+        static public double GetDistanceToSet(List<List<double>> distanceMatrix, List<int> solutionList, int target)
+        {
+            double result = 0;
+            for (int i = 0; i < solutionList.Count; i++)
+            {
+                if (solutionList[i] != target)
+                {
+                    result += distanceMatrix[solutionList[i]][target];
                 }
             }
 
