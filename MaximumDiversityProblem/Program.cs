@@ -3,18 +3,34 @@ namespace MaximumDiversityProblem
 {
     class Program
     {
+
+        private static void PrintSolutionVectors(Solution solution)
+        {
+            Console.WriteLine("{ ");
+            foreach (int index in solution.solution.ToList())
+            {
+                Console.Write("( ");
+                foreach ( double coord in solution.vectors[index])
+                {
+                    Console.Write(coord.ToString("0.00") + " ");
+                }
+                Console.WriteLine(")");
+            }
+            Console.WriteLine(" }");
+        }
+
         private static void PrintSolutionInfo(List<Solution> solutions)
         {
             double solutionTest = Utils.GetSolutionDistance(solutions[0]);
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
             foreach (Solution solution in solutions)
             {
-                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" 
+                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t"
                     + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
 
                 double solutionDist = Utils.GetSolutionDistance(solution);
-                
-                if(solution.totalDistance != Utils.GetSolutionDistance(solution))
+
+                if (solution.totalDistance != Utils.GetSolutionDistance(solution))
                 {
                     Console.WriteLine("ERROR: correct distance is " + Utils.GetSolutionDistance(solution));
                 }
@@ -38,7 +54,7 @@ namespace MaximumDiversityProblem
 
             List<Problem> problems = new List<Problem>();
             List<Solution> greedySolutions = new List<Solution>();
-            List<Solution> graspSolutions = new List<Solution>();   
+            List<Solution> graspSolutions = new List<Solution>();
 
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
@@ -56,6 +72,7 @@ namespace MaximumDiversityProblem
             PrintSolutionInfo(greedySolutions);
             Console.WriteLine("GRASP SOLUTIONS:");
             PrintSolutionInfo(graspSolutions);
+            PrintSolutionVectors(greedySolutions[0]);
         }
     }
 }

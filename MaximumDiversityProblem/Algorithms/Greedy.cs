@@ -42,18 +42,17 @@ namespace MaximumDiversityProblem
             HashSet<int> availableVectors = new HashSet<int>(Enumerable.Range(0, vectors.Count).ToList());
 
             List<double> centroid = Utils.GetCentroid(vectors, availableVectors);
-            List<int> rcl = MakeRCL(vectors, availableVectors, centroid, rclSize); ;
+            List<int> rcl;
 
             sw.Start();
 
             for (int i = 0; i < solutionSize; i++)
             {
+                rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
                 int indexToInsert = rcl[rand.Next(0, rcl.Count)];
-
                 solution.solution.Add(indexToInsert);
                 availableVectors.Remove(indexToInsert);
                 centroid = Utils.GetCentroid(vectors, solution.solution);
-                rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
             }
             sw.Stop();
 
