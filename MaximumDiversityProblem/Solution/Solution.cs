@@ -7,7 +7,7 @@
         public HashSet<int> solution = new HashSet<int>();
         public HashSet<int> discarted = new HashSet<int>();
         public long elapsedMilliseconds = -1;
-        public double totalDistance = -1; 
+        public double totalDistance = -1;
         public int dimensionality = -1;
         public int rclSize = -1;
         public string id = "undefined";
@@ -15,9 +15,9 @@
         public Solution(Problem problem, int rclSize = -1)
         {
             dimensionality = problem.dimensionality;
-            vectors = problem.vectors;
+            vectors = new List<List<double>>(problem.vectors);
             this.rclSize = rclSize;
-            this.distanceMatrix = problem.distanceMatrix;
+            this.distanceMatrix = new List<List<double>>(problem.distanceMatrix);
             this.id = problem.filename;
         }
 

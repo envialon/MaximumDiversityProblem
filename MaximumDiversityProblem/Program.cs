@@ -5,11 +5,15 @@ namespace MaximumDiversityProblem
     {
         private static void PrintSolutionInfo(List<Solution> solutions)
         {
+            double solutionTest = Utils.GetSolutionDistance(solutions[0]);
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
             foreach (Solution solution in solutions)
             {
                 Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" 
                     + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
+
+                double solutionDist = Utils.GetSolutionDistance(solution);
+                
                 if(solution.totalDistance != Utils.GetSolutionDistance(solution))
                 {
                     Console.WriteLine("ERROR: correct distance is " + Utils.GetSolutionDistance(solution));
@@ -40,6 +44,7 @@ namespace MaximumDiversityProblem
             {
                 problems.Add(new Problem(filename));
             }
+
 
             foreach (Problem problem in problems)
             {

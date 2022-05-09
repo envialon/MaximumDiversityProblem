@@ -8,7 +8,7 @@
             List<int> solutionIndexes = solutionSet.ToList();
             List<double> result = vectors[solutionIndexes[0]];
 
-            result = vectors[solutionIndexes[0]];
+            result = new List<double>(vectors[solutionIndexes[0]]);
 
             for (int i = 1; i < solutionIndexes.Count; i++)
             {
@@ -32,6 +32,7 @@
             double totalDistance = 0;
             List<int> indexList = solution.solution.ToList();
             List<List<double>> vectors = solution.vectors;
+
             for (int origin = 0; origin < indexList.Count; origin++)
             {
                 for (int destination = origin + 1; destination < indexList.Count; destination++)
@@ -63,7 +64,7 @@
             {
                 if (solutionList[i] != target)
                 {
-                    result += distanceMatrix[solutionList[i]][target];
+                    result += distanceMatrix[target][solutionList[i]];
                 }
             }
 
@@ -77,7 +78,7 @@
             {
                 if (solutionList[i] != target)
                 {
-                    result += distanceMatrix[solutionList[i]][target];
+                    result += distanceMatrix[target][solutionList[i]];
                 }
             }
 

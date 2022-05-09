@@ -44,7 +44,6 @@ namespace MaximumDiversityProblem
             List<double> centroid = Utils.GetCentroid(vectors, availableVectors);
             List<int> rcl = MakeRCL(vectors, availableVectors, centroid, rclSize); ;
 
-            double distance = 0;
             sw.Start();
 
             for (int i = 0; i < solutionSize; i++)
@@ -53,13 +52,12 @@ namespace MaximumDiversityProblem
 
                 solution.solution.Add(indexToInsert);
                 availableVectors.Remove(indexToInsert);
-                distance += Utils.GetDistanceToSet(problem.distanceMatrix, solution.solution, indexToInsert);
-                centroid = Utils.GetCentroid(vectors, solution.solution);
+                 centroid = Utils.GetCentroid(vectors, solution.solution);
                 rcl = MakeRCL(vectors, availableVectors, centroid, rclSize);
             }
             sw.Stop();
 
-            solution.totalDistance = distance;
+            solution.totalDistance = Utils.GetSolutionDistance(solution);
             solution.elapsedMilliseconds = sw.ElapsedMilliseconds;
             solution.rclSize = rclSize;
             solution.discarted = new HashSet<int>(availableVectors);
