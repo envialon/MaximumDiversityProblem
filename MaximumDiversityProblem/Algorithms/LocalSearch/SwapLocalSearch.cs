@@ -28,7 +28,7 @@
                         solution.Remove(sCandidate);
                         double currentDistance = distanceAfterRemove + Utils.GetDistanceToSet(distanceMatrix, solution, dCandidate);
                         solution.Add(sCandidate);
-                        if (currentDistance < bestDistance)
+                        if (currentDistance > bestDistance)
                         {
                             bestDistance = currentDistance;
                             sToSwap = sCandidate;

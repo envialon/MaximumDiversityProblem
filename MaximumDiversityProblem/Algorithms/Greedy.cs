@@ -44,6 +44,7 @@ namespace MaximumDiversityProblem
             List<double> centroid = Utils.GetCentroid(vectors, availableVectors);
             List<int> rcl;
 
+
             sw.Start();
 
             for (int i = 0; i < solutionSize; i++)

@@ -30,7 +30,7 @@ namespace MaximumDiversityProblem
 
                 double solutionDist = Utils.GetSolutionDistance(solution);
 
-                if (solution.totalDistance != Utils.GetSolutionDistance(solution))
+                if (solution.totalDistance.ToString("0.00") != Utils.GetSolutionDistance(solution).ToString("0.00"))
                 {
                     Console.WriteLine("ERROR: correct distance is " + Utils.GetSolutionDistance(solution));
                 }

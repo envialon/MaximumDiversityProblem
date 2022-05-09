@@ -15,7 +15,7 @@ namespace MaximumDiversityProblem
             for (int i = 0; i < iterationsWithoutImprovement; i++)
             {
                 Solution processed = SwapLocalSearch.Search(Greedy.Solve(problem, solutionSize, rclSize));
-                if(processed.totalDistance < bestSolution.totalDistance)
+                if(processed.totalDistance > bestSolution.totalDistance)
                 {
                     bestSolution = processed;
                     i = 0;
