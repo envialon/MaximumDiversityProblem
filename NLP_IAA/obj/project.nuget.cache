@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "wR+46clWdcy8h4Z0yAAQjMU1B9jTDHWZP7r+zDUtuYUzu2EkjE3SLc5piuPq9AigNJU509S5mARM7Y2SyxTTHg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\enriq\\source\\repos\\MaximumDiversityProblem\\NLP_IAA\\NLP_IAA.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\enriq\\.nuget\\packages\\exceldatareader\\3.6.0\\exceldatareader.3.6.0.nupkg.sha512",
+    "C:\\Users\\enriq\\.nuget\\packages\\exceldatareader.dataset\\3.6.0\\exceldatareader.dataset.3.6.0.nupkg.sha512",
+    "C:\\Users\\enriq\\.nuget\\packages\\system.memory\\4.5.4\\system.memory.4.5.4.nupkg.sha512",
+    "C:\\Users\\enriq\\.nuget\\packages\\wecantspell.hunspell\\3.1.2\\wecantspell.hunspell.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}
