@@ -52,7 +52,9 @@ namespace NLP_IAA
             foreach (string[] tweet in processedTweets)
             {
                 string beggining = table.Tables[0].Rows[j][0].ToString();
+                
                 beggining = beggining.Substring(0, 10);
+                beggining = beggining.Replace('\n', ' ');
                 
                 double pProbability = 0;
                 double nProbability = 0;
@@ -91,6 +93,7 @@ namespace NLP_IAA
 
                 type = pProbability > nProbability ? "P" : "N";
                 solutions.Add(new Solution(beggining, pProbability, nProbability, type));
+                j++;
             }
 
             using (StreamWriter fileWriter = new StreamWriter("clasificacion_alu0101337760.txt"))
@@ -113,25 +116,28 @@ namespace NLP_IAA
 
         }
 
-        public static string Validate()
+        public static string Validate(string predictedFile, string realFile)
         {
-            List<string> predicted = new  List<string>(File.ReadAllLines("resumen_alu0101337760.txt"));
+
+            List<string> predicted = new  List<string>(File.ReadAllLines(predictedFile));
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            FileStream file = File.Open("COV_train.xlsx", FileMode.Open, FileAccess.Read);
+            FileStream file = File.Open(realFile, FileMode.Open, FileAccess.Read);
             DataSet table = ExcelReaderFactory.CreateReader(file, new ExcelReaderConfiguration()).AsDataSet();
             file.Close();
 
             List<string> real = new List<string>();
-
+            List<string> toPredict = new List<string>();
 
             for (int i = 0; i < table.Tables[0].Rows.Count; i++)
             {
-                string value = table.Tables[0].Rows[i][1].ToString();
+                int index = int.Parse(table.Tables[0].Rows[i][0].ToString()) -1;
+                string value = table.Tables[0].Rows[i][2].ToString();
                 real.Add(value);
+                toPredict.Add(predicted[index]);
             }
 
-            return Report(predicted, real);
+            return Report(toPredict, real);
         }
 
         private static string Report(List<string> classification, List<string> realClass)
@@ -178,7 +184,7 @@ namespace NLP_IAA
             }
             return $" Positive:{Positive}/{realPositive}\n Negative:{Negative}/{realNegative}\n Correct:{correct}/{classification.Count}\n" +
                 $" Confusion Matrix: \n   {confusionMatrix[0, 0],5}   {confusionMatrix[0, 1],5}\n   {confusionMatrix[1, 0],5}   {confusionMatrix[1, 1],5}\n" +
-                $" Results: {((double)correct / classification.Count * 100).ToString("00.000")} %";
+                $" Accuracy: {((double)correct / classification.Count * 100).ToString("00.000")} %";
         }
 
         public static Dictionary<string, (int, double)> GetDictionaryFromModel(string modelFile)

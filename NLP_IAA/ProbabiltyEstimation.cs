@@ -128,7 +128,7 @@ namespace NLP_IAA
             }
 
 
-            using (StreamWriter pfile = new StreamWriter("modelo_lenguaje_P.txt"))
+            using (StreamWriter pfile = new StreamWriter("Models\\Generated\\modelo_lenguaje_P.txt"))
             {
                 List<string> wordList = new List<string>(pWordFreq.Keys);
                 wordList.Sort();
@@ -144,7 +144,7 @@ namespace NLP_IAA
             }
 
 
-            using (StreamWriter nfile = new StreamWriter("modelo_lenguaje_N.txt"))
+            using (StreamWriter nfile = new StreamWriter("Models\\Generated\\modelo_lenguaje_N.txt"))
             {
                 List<string> wordList = new List<string>(nWordFreq.Keys);
                 wordList.Sort();
