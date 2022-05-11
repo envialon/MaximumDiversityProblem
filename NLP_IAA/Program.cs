@@ -6,8 +6,6 @@
         {
             //ProbabiltyEstimation.GoodModel("COV_train.xlsx", "vocabulario.txt");
 
-
-
             Console.WriteLine("Introduce the test filename:");
             //string testFile = Console.ReadLine();
             string testFile = "COV_train.xlsx";
