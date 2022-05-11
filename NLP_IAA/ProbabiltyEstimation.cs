@@ -8,13 +8,12 @@ namespace NLP_IAA
     {
         static string[] punct = { ".", ",", "!", "?", ":", ";", "\"", "(", ")", "[", "]", "{", "}", "<", ">", "/", "\\", "|", "=", "+", "_" };
 
-        public static int[] GoodModel(string corpus, string vocabulary)
+        public static void GoodModel(string corpus, string vocabulary)
         {
-            
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             FileStream file = File.Open(corpus, FileMode.Open, FileAccess.Read);
             DataSet table = ExcelReaderFactory.CreateReader(file, new ExcelReaderConfiguration()).AsDataSet();
-            
+            file.Close();
             List<string[]> processedTweets = new List<string[]>();
             using var dictionaryStream = File.OpenRead(@"English_American.dic");
             using var affixStream = File.OpenRead(@"English_American.aff");
@@ -22,8 +21,8 @@ namespace NLP_IAA
             for (int i = 0; i < table.Tables[0].Rows.Count; i++)
                 processedTweets.Add(Preprocess(table.Tables[0].Rows[i][0].ToString(), dictionary));
 
-            List<string> vocabloList = new List<string>(File.ReadAllLines(vocabulary));
-            vocabloList.RemoveAt(0);
+            List<string> vocabList = new List<string>(File.ReadAllLines(vocabulary));
+            vocabList.RemoveAt(0);
 
             List<string> positiveWords = new List<string>();
             List<string> negativeWords = new List<string>();
@@ -32,7 +31,8 @@ namespace NLP_IAA
             int negativeTweets = 0;
 
             int j = 0;
-            foreach (string[] tweet in processedTweets) { 
+            foreach (string[] tweet in processedTweets)
+            {
                 string value = table.Tables[0].Rows[j][1].ToString();
 
                 if (value == "Positive")
@@ -44,7 +44,8 @@ namespace NLP_IAA
                     negativeTweets++;
                 }
 
-                foreach(string word in tweet) { 
+                foreach (string word in tweet)
+                {
                     if (word != null && !stopWords.Contains(word))
                     {
                         if (value == "Positive")
@@ -62,9 +63,101 @@ namespace NLP_IAA
 
             positiveWords.Sort();
             negativeWords.Sort();
-            File.WriteAllLines("CorpusP.txt", positiveWords);
-            File.WriteAllLines("CorpusN.txt", negativeWords);
-            return new int[] { positiveTweets, negativeTweets };
+
+
+            Dictionary<string, int> nWordFreq = new Dictionary<string, int>();
+            nWordFreq.Add("<UNK>", 0);
+            Dictionary<string, int> pWordFreq = new Dictionary<string, int>();
+            pWordFreq.Add("<UNK>", 0);
+
+            foreach (string word in positiveWords)
+            {
+                if (!pWordFreq.ContainsKey(word))
+                {
+                    pWordFreq.Add(word, 0);
+                }
+                pWordFreq[word]++;
+            }
+
+            foreach (string word in negativeWords)
+            {
+                if (!nWordFreq.ContainsKey(word))
+                {
+                    nWordFreq.Add(word, 0);
+                }
+                nWordFreq[word]++;
+            }
+
+            foreach (string word in vocabList)
+            {
+                int pFreq;
+                if (pWordFreq.ContainsKey(word))
+                {
+                    pFreq = pWordFreq[word];
+                }
+                else {
+                    pFreq = 0;
+                }
+
+                int nFreq;
+                if (nWordFreq.ContainsKey(word))
+                {
+                    nFreq = nWordFreq[word];
+                }
+                else
+                {
+                    nFreq = 0;
+                }
+
+                if (pFreq + nFreq < 5)
+                {
+                    if (pWordFreq.ContainsKey(word))
+                    {
+                        int pfreq = pWordFreq[word];
+                        pWordFreq["<UNK>"] += pfreq;
+                        pWordFreq.Remove(word);
+                    }
+
+                    if (nWordFreq.ContainsKey(word))
+                    {
+                        int nfreq = nWordFreq[word];
+                        nWordFreq["<UNK>"] += nfreq;
+                        nWordFreq.Remove(word);
+                    }
+                }
+            }
+
+
+            using (StreamWriter pfile = new StreamWriter("modelo_lenguaje_P.txt"))
+            {
+                List<string> wordList = new List<string>(pWordFreq.Keys);
+                wordList.Sort();
+
+                pfile.WriteLine("Numero de documentos (tweets) del corpus :" + positiveTweets);
+                pfile.WriteLine("Número de palabras del corpus:" + positiveWords.Count);
+
+                foreach (string word in wordList)
+                {
+                    double logProb = Math.Log((pWordFreq[word] + 1)) - Math.Log((double)positiveWords.Count + vocabList.Count);
+                    pfile.WriteLine("Palabra:" + word + " Frec:" + pWordFreq[word] + " LogProb:" + logProb);
+                }
+            }
+
+
+            using (StreamWriter nfile = new StreamWriter("modelo_lenguaje_N.txt"))
+            {
+                List<string> wordList = new List<string>(nWordFreq.Keys);
+                wordList.Sort();
+
+                nfile.WriteLine("Numero de documentos (tweets) del corpus :" + negativeTweets);
+                nfile.WriteLine("Número de palabras del corpus:" + negativeWords.Count);
+
+                foreach (string word in wordList)
+                {
+                    double logProb = Math.Log((nWordFreq[word] + 1)) - Math.Log((double)negativeWords.Count + vocabList.Count);
+                    nfile.WriteLine("Palabra:" + word + " Frec:" + nWordFreq[word] + " LogProb:" + logProb);
+                }
+            }
         }
 
         public static void Model(int corpusTweets, string corpus, string vocuabulary, bool postive)
@@ -84,8 +177,8 @@ namespace NLP_IAA
                 if (!wordFreq.ContainsKey(word))
                 {
                     wordFreq.Add(word, 0);
-                }             
-                wordFreq[word]++;                
+                }
+                wordFreq[word]++;
             }
 
             List<string> wordList = new List<string>(wordFreq.Keys);
@@ -136,9 +229,7 @@ namespace NLP_IAA
                 if (dictionary.Check(result[i]) && result[i][0] != '#' && result[i].Length > 2 && result[i][0] != '@' && !result[i].StartsWith("http") && !int.TryParse($"{result[i][0]}", out _) && !stopWords.Contains(result[i]))
                     filtered.Add(result[i]);
             return filtered.ToArray();
-
         }
-
 
         private static string ReplaceAll(string[] pattern, string str, string replacement = "")
         {
