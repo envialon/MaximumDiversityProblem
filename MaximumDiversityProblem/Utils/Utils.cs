@@ -44,6 +44,21 @@
             return (float)Math.Round(totalDistance, 2);
         }
 
+        static public float GetSolutionDistance(List<int> indexList, Problem problem) {
+            float totalDistance = 0;
+            List<List<float>> vectors = problem.vectors;
+
+            for (int origin = 0; origin < indexList.Count; origin++)
+            {
+                for (int destination = origin + 1; destination < indexList.Count; destination++)
+                {
+                    totalDistance += GetDistance(vectors[indexList[origin]], vectors[indexList[destination]]);
+                }
+            }
+
+            return (float)Math.Round(totalDistance, 2);
+        }
+
         static public float GetDistance(List<float> origin, List<float> target)
         {
             float result = 0;

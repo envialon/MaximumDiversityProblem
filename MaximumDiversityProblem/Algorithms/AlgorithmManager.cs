@@ -11,5 +11,11 @@
         {
             return Grasp.Solve(problem, problemSize, rclSize);
         }
+
+        public static Solution SolveBranchAndBound(Problem problem, Solution solution)
+        {
+            return BranchAndBound.Solve(problem, solution.solution.Count, solution.totalDistance);
+        }
+
     }
 }
