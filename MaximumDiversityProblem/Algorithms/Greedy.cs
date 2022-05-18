@@ -33,7 +33,7 @@ namespace MaximumDiversityProblem
             return rcl;
         }
 
-        static public Solution Solve(Problem problem, int solutionSize, int rclSize)
+        static public Solution Solve(Problem problem, int solutionSize, int rclSize = 1)
         {
             Stopwatch sw = new Stopwatch();
             Random rand = new Random();

@@ -1,6 +1,7 @@
 ﻿namespace MaximumDiversityProblem
 {
-    public class TabooSearch
+    public class TabuSearch
     {
+
     }
 }
