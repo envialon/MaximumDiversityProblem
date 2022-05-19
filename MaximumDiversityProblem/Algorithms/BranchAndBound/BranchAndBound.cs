@@ -8,9 +8,7 @@
 
     internal class BranchAndBound
     {
-
-        private static List<List<float>> distanceMatrix = new List<List<float>>();
-        private static int numberOfVectors = 0;
+        private static Problem problem;
 
 
         private static PartialSolution SelectPartialSolution(List<PartialSolution> activeSolutions, BBType selectionType)
@@ -39,47 +37,59 @@
             return bestSolution;
         }
 
-        private static List<int> GetCandidates(List<int> partialSolution)
+        private static List<int> GetCandidates(List<int> indexList)
         {
-            List<int> candidates = Enumerable.Range(0, numberOfVectors).ToList();
+            List<int> candidates = Enumerable.Range(0, problem.numberOfVectors).ToList();
 
-            for (int k = 0; k < partialSolution.Count; k++)
+            for (int k = 0; k < indexList.Count; k++)
             {
-                candidates.Remove(partialSolution[k]);
+                candidates.Remove(indexList[k]);
             }
             return candidates;
         }
 
-        private static float CalculateUpperBound(List<int> partialSolution)
+        private static float CalculateUpperBound(HashSet<int> partialSolution)
         {
-            List<int> candidates = GetCandidates(partialSolution);
+            List<int> indexList = partialSolution.ToList();
+            List<int> candidates = GetCandidates(indexList);
 
             float higherDistance = float.MinValue;
-            for (int c = 0; c < candidates.Count; c++)
+            int bestCandidate = -1;
+            if (indexList.Count != problem.solutionSize)
             {
-                int candidate = candidates[c];
-                for (int i = 0; i < numberOfVectors; i++)
+                for (int c = 0; c < candidates.Count; c++)
                 {
-                    if (!partialSolution.Contains(i))
+                    int candidate = candidates[c];
+                    for (int i = 0; i < problem.numberOfVectors; i++)
                     {
-                        float currentDistance = distanceMatrix[i][candidate];
-                        if (higherDistance < currentDistance)
+                        if (!indexList.Contains(i))
                         {
-                            higherDistance = currentDistance;
+                            float currentDistance = problem.distanceMatrix[i][candidate];
+                            if (higherDistance < currentDistance)
+                            {
+                                higherDistance = currentDistance;
+                                bestCandidate = candidate;
+                            }
                         }
                     }
                 }
             }
-            return higherDistance * (numberOfVectors - partialSolution.Count);
+
+            float toBeSelected = higherDistance * (problem.solutionSize - indexList.Count);
+            float connectionsToSolution = Utils.GetDistanceToSet(problem.distanceMatrix, new HashSet<int>(indexList), bestCandidate);
+            float solutionDistance = Utils.GetSolutionDistance(indexList, problem);
+
+            return toBeSelected + connectionsToSolution + solutionDistance;
+
         }
 
         private static void InitializeActiveNodes(HashSet<PartialSolution> activeNodes)
         {
-            for (int i = 0; i < numberOfVectors; i++)
+            for (int i = 0; i < problem.numberOfVectors; i++)
             {
-                for (int j = i + 1; j < numberOfVectors; j++)
+                for (int j = i + 1; j < problem.numberOfVectors; j++)
                 {
-                    List<int> partialSolution = new List<int> { i, j };
+                    HashSet<int> partialSolution = new HashSet<int>{ i, j };
 
                     float upperBound = CalculateUpperBound(partialSolution);
                     activeNodes.Add(new PartialSolution(partialSolution, upperBound));
@@ -89,7 +99,7 @@
 
         private static List<PartialSolution> GenerateChildren(PartialSolution partialSolution, int solutionSize)
         {
-            List<int> candidates = GetCandidates(partialSolution.solution);
+            List<int> candidates = GetCandidates(partialSolution.solution.ToList());
             List<List<int>> childrenSolutions = new List<List<int>>();
             List<PartialSolution> children = new List<PartialSolution>();
 
@@ -100,8 +110,7 @@
 
         public static Solution Solve(Problem problem, BBType selectionType, int solutionSize, double LowerBound)
         {
-            distanceMatrix = problem.distanceMatrix;
-            numberOfVectors = problem.vectors.Count;
+            BranchAndBound.problem = problem;
 
             HashSet<PartialSolution> activeNodes = new HashSet<PartialSolution>();
             InitializeActiveNodes(activeNodes);
@@ -118,8 +127,9 @@
                     activeNodes.Remove(currentSolution);
                 }
 
-                List<PartialSolution> children = GenerateChildren(currentSolution, problem.solutionSize);
+                activeNodes.Remove(currentSolution);
 
+                List<PartialSolution> children = GenerateChildren(currentSolution, problem.solutionSize);
             }
 
 

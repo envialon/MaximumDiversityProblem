@@ -14,7 +14,7 @@
 
         public static Solution SolveBranchAndBound(Problem problem, Solution solution)
         {
-            return BranchAndBound.Solve(problem, solution.solution.Count, solution.totalDistance);
+            return BranchAndBound.Solve(problem, BBType.DEPTH_FIRST_SEARCH, solution.solution.Count, solution.totalDistance);
         }
 
     }
