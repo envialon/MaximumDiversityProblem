@@ -9,7 +9,7 @@
     internal class BranchAndBound
     {
         private static Problem problem;
-
+        private static int solutionSize;
 
         private static PartialSolution SelectPartialSolution(List<PartialSolution> activeSolutions, BBType selectionType)
         {
@@ -55,7 +55,7 @@
 
             float higherDistance = float.MinValue;
             int bestCandidate = -1;
-            if (indexList.Count != problem.solutionSize)
+            if (indexList.Count != solutionSize)
             {
                 for (int c = 0; c < candidates.Count; c++)
                 {
@@ -75,7 +75,7 @@
                 }
             }
 
-            float toBeSelected = higherDistance * (problem.solutionSize - indexList.Count);
+            float toBeSelected = higherDistance * (solutionSize - indexList.Count);
             float connectionsToSolution = Utils.GetDistanceToSet(problem.distanceMatrix, new HashSet<int>(indexList), bestCandidate);
             float solutionDistance = Utils.GetSolutionDistance(indexList, problem);
 
@@ -108,32 +108,48 @@
             return children;
         }
 
-        public static Solution Solve(Problem problem, BBType selectionType, int solutionSize, double LowerBound)
+        public static Solution Solve(Problem problem, int solutionSize, BBType selectionType)
         {
             BranchAndBound.problem = problem;
-
+            BranchAndBound.solutionSize = solutionSize;
             HashSet<PartialSolution> activeNodes = new HashSet<PartialSolution>();
             InitializeActiveNodes(activeNodes);
 
-            float lowerBound = Greedy.Solve(problem, solutionSize).totalDistance;
-            PartialSolution bestSolution;
+            Solution greedy = Greedy.Solve(problem, solutionSize, 1);
+
+            float lowerBound = greedy.totalDistance;
+            PartialSolution bestSolution = new PartialSolution(greedy.solution, lowerBound);
 
             while (activeNodes.Count > 0)
             {
                 PartialSolution currentSolution = SelectPartialSolution(activeNodes.ToList(), selectionType);
 
-                if (currentSolution.upperBound <= LowerBound)
+                if(currentSolution.depth == solutionSize && currentSolution.upperBound > lowerBound)
                 {
+                    lowerBound = currentSolution.upperBound;
                     activeNodes.Remove(currentSolution);
+                    bestSolution = currentSolution;
+                    continue;
                 }
 
-                activeNodes.Remove(currentSolution);
 
-                List<PartialSolution> children = GenerateChildren(currentSolution, problem.solutionSize);
+                activeNodes.Remove(currentSolution);
+                if (currentSolution.upperBound <= lowerBound)
+                {
+                    continue;
+                }
+
+
+                List<PartialSolution> children = GenerateChildren(currentSolution, solutionSize);
+
+                for(int i = 0; i < children.Count; i++)
+                {
+                    activeNodes.Add(children[i]);
+                }                
             }
 
-
-            throw new NotImplementedException();
+            return new Solution(problem, bestSolution, GetCandidates(bestSolution.solution.ToList()));
+            
         }
 
     }

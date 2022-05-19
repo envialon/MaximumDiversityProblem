@@ -12,9 +12,9 @@
             return Grasp.Solve(problem, problemSize, rclSize);
         }
 
-        public static Solution SolveBranchAndBound(Problem problem, Solution solution)
+        public static Solution SolveBranchAndBound(Problem problem, int problemSize,  BBType searchType = BBType.DEPTH_FIRST_SEARCH)
         {
-            return BranchAndBound.Solve(problem, BBType.DEPTH_FIRST_SEARCH, solution.solution.Count, solution.totalDistance);
+            return BranchAndBound.Solve(problem,problemSize,  searchType);
         }
 
     }

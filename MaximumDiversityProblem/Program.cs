@@ -74,6 +74,9 @@ namespace MaximumDiversityProblem
             List<Problem> problems = new List<Problem>();
             List<Solution> greedySolutions = new List<Solution>();
             List<Solution> graspSolutions = new List<Solution>();
+            List<Solution> branchAndBoundDFSSolutions = new List<Solution>();
+            List<Solution> branchAndBoundSmallestUpperBoundSolution = new List<Solution>();
+
 
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
@@ -87,13 +90,27 @@ namespace MaximumDiversityProblem
                 {
                     greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
                     graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, SOLUTION_SIZE, RCL_SIZE));
+                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, BBType.DEPTH_FIRST_SEARCH));
+                    branchAndBoundSmallestUpperBoundSolution.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE BBType.SMALLEST_UPPER_BOUND));
                 }
             }
 
             Console.WriteLine("GREEDY SOLUTIONS:");
             PrintSolutionInfo(greedySolutions, problems.Count);
+            
+            Console.WriteLine();
             Console.WriteLine("GRASP SOLUTIONS:");
             PrintSolutionInfo(graspSolutions, problems.Count);
+
+            Console.WriteLine();
+            Console.WriteLine("BRANCH AND BOUND DFS SOLUTIONS:");
+            PrintSolutionInfo(branchAndBoundDFSSolutions, problems.Count);
+
+            Console.WriteLine();
+            Console.WriteLine("BRANCH AND BOUND SMALLEST UPPERBOUND FIRST SOLUTIONS:");
+            PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution, problems.Count);
+            
+
         }
     }
 }
