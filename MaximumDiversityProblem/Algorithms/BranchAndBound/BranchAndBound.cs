@@ -68,7 +68,7 @@
                             float currentContribution = Utils.GetDistanceToSet(problem.distanceMatrix, new HashSet<int>(indexList), candidate);
                             if (highestContribution < currentContribution)
                             {
-                                highestContribution= currentContribution;
+                                highestContribution = currentContribution;
                                 bestCandidate = candidate;
                             }
                         }
@@ -89,7 +89,7 @@
             {
                 for (int j = i + 1; j < problem.numberOfVectors; j++)
                 {
-                    HashSet<int> partialSolution = new HashSet<int>{ i, j };
+                    HashSet<int> partialSolution = new HashSet<int> { i, j };
 
                     float upperBound = CalculateUpperBound(partialSolution);
                     activeNodes.Add(new PartialSolution(partialSolution, upperBound));
@@ -102,7 +102,8 @@
             List<int> candidates = GetCandidates(partialSolution.solution.ToList());
             List<PartialSolution> children = new List<PartialSolution>();
 
-            for(int c = 0; c < candidates.Count; c++) {
+            for (int c = 0; c < candidates.Count; c++)
+            {
                 int candidate = candidates[c];
                 HashSet<int> newSolution = new HashSet<int>(partialSolution.solution);
                 newSolution.Add(candidate);
@@ -119,42 +120,40 @@
             HashSet<PartialSolution> activeNodes = new HashSet<PartialSolution>();
             InitializeActiveNodes(activeNodes);
 
-            Solution greedy = Greedy.Solve(problem, solutionSize, 1);
+            Solution initialSolution = Greedy.Solve(problem, solutionSize, 1);
 
-            float lowerBound = greedy.totalDistance;
-            PartialSolution bestSolution = new PartialSolution(greedy.solution, lowerBound);
+            float lowerBound = initialSolution.totalDistance;
+            PartialSolution bestSolution = new PartialSolution(initialSolution.solution, lowerBound);
 
             while (activeNodes.Count > 0)
             {
                 PartialSolution currentSolution = SelectPartialSolution(activeNodes.ToList(), selectionType);
 
-                if(currentSolution.depth == solutionSize && currentSolution.upperBound > lowerBound)
+                activeNodes.Remove(currentSolution);
+
+                if (currentSolution.upperBound > lowerBound)
                 {
                     lowerBound = currentSolution.upperBound;
-                    activeNodes.Remove(currentSolution);
-                    bestSolution = currentSolution;
-                    continue;
+                    if (currentSolution.depth == solutionSize)
+                    {
+                        bestSolution = currentSolution;
+                        continue;
+                    }              
+
+                    List<PartialSolution> children = GenerateChildren(currentSolution, solutionSize);
+
+                    for (int i = 0; i < children.Count; i++)
+                    {
+                        if (children[i].upperBound > lowerBound)
+                        {
+                            activeNodes.Add(children[i]);
+                        }
+                    }
                 }
+            }
+                return new Solution(problem, bestSolution, GetCandidates(bestSolution.solution.ToList()));
 
-
-                activeNodes.Remove(currentSolution);
-                if (currentSolution.upperBound <= lowerBound)
-                {
-                    continue;
-                }
-
-
-                List<PartialSolution> children = GenerateChildren(currentSolution, solutionSize);
-
-                for(int i = 0; i < children.Count; i++)
-                {
-                    activeNodes.Add(children[i]);
-                }                
             }
 
-            return new Solution(problem, bestSolution, GetCandidates(bestSolution.solution.ToList()));
-            
         }
-
     }
-}
