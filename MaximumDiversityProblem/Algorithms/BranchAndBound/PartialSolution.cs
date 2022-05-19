@@ -8,9 +8,11 @@
     
         public PartialSolution(HashSet<int> solution, float upperBound)
         {
-            this.solution = solution;
+            this.solution = new HashSet<int>(solution);
             this.upperBound = upperBound;
             this.depth = solution.Count;
         }
+
+        
     }
 }

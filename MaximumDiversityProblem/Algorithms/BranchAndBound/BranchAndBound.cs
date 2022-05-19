@@ -54,10 +54,11 @@
             List<int> candidates = GetCandidates(indexList);
 
             float higherDistance = float.MinValue;
-            int bestCandidate = -1;
+            int bestCandidate = candidates.First();
+
             if (indexList.Count != solutionSize)
             {
-                for (int c = 0; c < candidates.Count; c++)
+                for (int c = 1; c < candidates.Count; c++)
                 {
                     int candidate = candidates[c];
                     for (int i = 0; i < problem.numberOfVectors; i++)
@@ -100,10 +101,14 @@
         private static List<PartialSolution> GenerateChildren(PartialSolution partialSolution, int solutionSize)
         {
             List<int> candidates = GetCandidates(partialSolution.solution.ToList());
-            List<List<int>> childrenSolutions = new List<List<int>>();
             List<PartialSolution> children = new List<PartialSolution>();
 
-
+            for(int c = 0; c < candidates.Count; c++) {
+                int candidate = candidates[c];
+                HashSet<int> newSolution = new HashSet<int>(partialSolution.solution);
+                newSolution.Add(candidate);
+                children.Add(new PartialSolution(newSolution, CalculateUpperBound(newSolution)));
+            }
 
             return children;
         }

@@ -90,8 +90,8 @@ namespace MaximumDiversityProblem
                 {
                     greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
                     graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, SOLUTION_SIZE, RCL_SIZE));
-                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, BBType.DEPTH_FIRST_SEARCH));
-                    branchAndBoundSmallestUpperBoundSolution.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE BBType.SMALLEST_UPPER_BOUND));
+                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE, BBType.DEPTH_FIRST_SEARCH));  ;
+                    branchAndBoundSmallestUpperBoundSolution.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE, BBType.SMALLEST_UPPER_BOUND));
                 }
             }
 
@@ -104,11 +104,11 @@ namespace MaximumDiversityProblem
 
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND DFS SOLUTIONS:");
-            PrintSolutionInfo(branchAndBoundDFSSolutions, problems.Count);
+            PrintSolutionInfo(branchAndBoundDFSSolutions);//, problems.Count);
 
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND SMALLEST UPPERBOUND FIRST SOLUTIONS:");
-            PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution, problems.Count);
+            PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution);//, problems.Count);
             
 
         }
