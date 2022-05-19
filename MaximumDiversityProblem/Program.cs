@@ -104,11 +104,11 @@ namespace MaximumDiversityProblem
 
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND DFS SOLUTIONS:");
-            PrintSolutionInfo(branchAndBoundDFSSolutions);//, problems.Count);
+            PrintSolutionInfo(branchAndBoundDFSSolutions, problems.Count);
 
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND SMALLEST UPPERBOUND FIRST SOLUTIONS:");
-            PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution);//, problems.Count);
+            PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution, problems.Count);
             
 
         }

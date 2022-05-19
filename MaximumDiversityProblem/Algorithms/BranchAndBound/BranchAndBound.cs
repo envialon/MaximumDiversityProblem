@@ -53,8 +53,8 @@
             List<int> indexList = partialSolution.ToList();
             List<int> candidates = GetCandidates(indexList);
 
-            float higherDistance = float.MinValue;
             int bestCandidate = candidates.First();
+            float highestContribution = Utils.GetDistanceToSet(problem.distanceMatrix, new HashSet<int>(indexList), bestCandidate);
 
             if (indexList.Count != solutionSize)
             {
@@ -65,10 +65,10 @@
                     {
                         if (!indexList.Contains(i))
                         {
-                            float currentDistance = problem.distanceMatrix[i][candidate];
-                            if (higherDistance < currentDistance)
+                            float currentContribution = Utils.GetDistanceToSet(problem.distanceMatrix, new HashSet<int>(indexList), candidate);
+                            if (highestContribution < currentContribution)
                             {
-                                higherDistance = currentDistance;
+                                highestContribution= currentContribution;
                                 bestCandidate = candidate;
                             }
                         }
@@ -76,11 +76,10 @@
                 }
             }
 
-            float toBeSelected = higherDistance * (solutionSize - indexList.Count);
-            float connectionsToSolution = Utils.GetDistanceToSet(problem.distanceMatrix, new HashSet<int>(indexList), bestCandidate);
+            float toBeSelected = highestContribution * (solutionSize - indexList.Count);
             float solutionDistance = Utils.GetSolutionDistance(indexList, problem);
 
-            return toBeSelected + connectionsToSolution + solutionDistance;
+            return toBeSelected + solutionDistance;
 
         }
 
