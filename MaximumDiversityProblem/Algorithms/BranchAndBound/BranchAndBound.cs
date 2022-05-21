@@ -61,7 +61,8 @@
                 HashSet<int> newSolution = new HashSet<int>(partialSolution.solution);
                 newSolution.Add(candidate);
                 PartialSolution newPSol = new PartialSolution(problem, newSolution, solutionSize);
-                if (newPSol.upperBound < lowerBound)
+
+                if (newPSol.upperBound >= lowerBound)
                 {
                     activeNodes.Add(newPSol);
                 }
@@ -77,8 +78,7 @@
 
             Solution initialSolution = Greedy.Solve(problem, solutionSize, 1);
 
-            //float lowerBound = initialSolution.totalDistance;
-            float lowerBound = 0;
+            float lowerBound = initialSolution.totalDistance;         
             PartialSolution bestSolution = new PartialSolution(problem, initialSolution.solution, solutionSize);
 
             while (activeNodes.Count > 0)
@@ -87,7 +87,7 @@
 
                 activeNodes.Remove(currentSolution);
 
-                if (currentSolution.upperBound > lowerBound)
+                if (currentSolution.upperBound >= lowerBound)
                 {
                     if (currentSolution.depth == solutionSize)
                     {

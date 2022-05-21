@@ -14,20 +14,19 @@
         {
             this.solution = new HashSet<int>(solution);
             this.depth = solution.Count;
-            this.candidates = new HashSet<int>(GetCandidates(problem, solution.ToList()));
+            GetCandidates(problem, solution.ToList());
             this.maxSolutionSize = maxSolutionSize;
             this.upperBound = CalculateUpperBound(problem);
         }
 
-        private List<int> GetCandidates(Problem problem, List<int> indexList)
+        private void GetCandidates(Problem problem, List<int> indexList)
         {
-            List<int> candidates = Enumerable.Range(0, problem.numberOfVectors).ToList();
+            this.candidates = new HashSet<int>(Enumerable.Range(0, problem.numberOfVectors).ToList());
 
             for (int k = 0; k < indexList.Count; k++)
             {
                 candidates.Remove(indexList[k]);
             }
-            return candidates;
         }
 
         private float CalculateUpperBound(Problem problem)
@@ -61,7 +60,6 @@
         {
             List<int> list = solution.ToList();
             return String.Join(", ", list);
-
         }
 
     }

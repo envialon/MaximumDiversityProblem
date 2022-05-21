@@ -83,7 +83,14 @@ namespace MaximumDiversityProblem
                 problems.Add(new Problem(filename));
             }
 
-            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            //PartialSolution newPS = new PartialSolution(problems.Last(), new HashSet<int>(new List<int>{ 14, 13, 16, 5, 23 }), 5);
+            PartialSolution right = new PartialSolution(problems.Last(), new HashSet<int>(new List<int> { 5, 13 }), 5);
+            PartialSolution wrong = new PartialSolution(problems.Last(), new HashSet<int>(new List<int> { 5, 13 }), 5);
+
+            AlgorithmManager.SolveBranchAndBound(problems.Last(), 5, BBType.SMALLEST_UPPER_BOUND);
+
+
+            for (int i = SOLUTION_SIZE; i <= 2; i++)
             {
                 SOLUTION_SIZE = i;
                 foreach (Problem problem in problems)
@@ -94,6 +101,7 @@ namespace MaximumDiversityProblem
                     branchAndBoundSmallestUpperBoundSolution.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE, BBType.SMALLEST_UPPER_BOUND));
                 }
             }
+
 
             Console.WriteLine("GREEDY SOLUTIONS:");
             PrintSolutionInfo(greedySolutions, problems.Count);
@@ -109,8 +117,6 @@ namespace MaximumDiversityProblem
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND SMALLEST UPPERBOUND FIRST SOLUTIONS:");
             PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution, problems.Count);
-            
-
         }
     }
 }
