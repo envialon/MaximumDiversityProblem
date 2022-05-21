@@ -21,26 +21,18 @@
             this.id = problem.filename;
         }
 
-        public Solution(Problem problem, PartialSolution solution, List<int> discarted)
+        public Solution(Problem problem, PartialSolution solution)
         {
             this.dimensionality = problem.dimensionality;
             this.vectors = new List<List<float>>(problem.vectors);
             this.distanceMatrix = new List<List<float>>(problem.distanceMatrix);
             this.id = problem.filename;
-            this.discarted = new HashSet<int>(discarted);
+            this.discarted = new HashSet<int>(Enumerable.Range(0, problem.vectors.Count));
+            discarted.ExceptWith(solution.solution);
             this.solution = new HashSet<int>(solution.solution);
             this.totalDistance = solution.upperBound;            
         }
-        public Solution(Problem problem, PartialSolution solution, HashSet<int> discarted)
-        {
-            this.dimensionality = problem.dimensionality;
-            this.vectors = new List<List<float>>(problem.vectors);
-            this.distanceMatrix = new List<List<float>>(problem.distanceMatrix);
-            this.id = problem.filename;
-            this.discarted = new HashSet<int>(discarted);
-            this.solution = new HashSet<int>(solution.solution);
-            this.totalDistance = solution.upperBound;
-        }
+    
 
         public Solution(Solution solution)
         {

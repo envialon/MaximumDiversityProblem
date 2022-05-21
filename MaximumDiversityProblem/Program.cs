@@ -81,16 +81,9 @@ namespace MaximumDiversityProblem
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
                 problems.Add(new Problem(filename));
-            }
+            }              
 
-            //PartialSolution newPS = new PartialSolution(problems.Last(), new HashSet<int>(new List<int>{ 14, 13, 16, 5, 23 }), 5);
-            PartialSolution right = new PartialSolution(problems.Last(), new HashSet<int>(new List<int> { 5, 13 }), 5);
-            PartialSolution wrong = new PartialSolution(problems.Last(), new HashSet<int>(new List<int> { 5, 13 }), 5);
-
-            AlgorithmManager.SolveBranchAndBound(problems.Last(), 5, BBType.SMALLEST_UPPER_BOUND);
-
-
-            for (int i = SOLUTION_SIZE; i <= 2; i++)
+            for (int i = SOLUTION_SIZE; i <= 5; i++)
             {
                 SOLUTION_SIZE = i;
                 foreach (Problem problem in problems)

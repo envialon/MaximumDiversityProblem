@@ -3,7 +3,6 @@
     public class PartialSolution
     {
         public HashSet<int> solution = new HashSet<int>();
-        public HashSet<int> candidates = new HashSet<int>();
         public int depth = -1;
         public float upperBound = -1;
         public int maxSolutionSize;
@@ -14,39 +13,30 @@
         {
             this.solution = new HashSet<int>(solution);
             this.depth = solution.Count;
-            GetCandidates(problem, solution.ToList());
             this.maxSolutionSize = maxSolutionSize;
             this.upperBound = CalculateUpperBound(problem);
         }
 
-        private void GetCandidates(Problem problem, List<int> indexList)
-        {
-            this.candidates = new HashSet<int>(Enumerable.Range(0, problem.numberOfVectors).ToList());
-
-            for (int k = 0; k < indexList.Count; k++)
-            {
-                candidates.Remove(indexList[k]);
-            }
-        }
 
         private float CalculateUpperBound(Problem problem)
         {
             List<int> indexList = solution.ToList();
-            List<int> candidates = this.candidates.ToList();
 
             float highestDistance = float.MinValue;
 
-            for (int c = 0; c < candidates.Count; c++)
+            for (int candidate = 0; candidate < problem.vectors.Count; candidate++)
             {
-                int candidate = candidates[c];
-                for (int target = 0; target < problem.vectors.Count; target++)
+                if (!solution.Contains(candidate))
                 {
-                    if (candidate != target)
+                    for (int target = 0; target < problem.vectors.Count; target++)
                     {
-                        float currentDistance = problem.distanceMatrix[candidate][target];
-                        if (highestDistance < currentDistance)
+                        if (candidate != target)
                         {
-                            highestDistance = currentDistance;
+                            float currentDistance = problem.distanceMatrix[candidate][target];
+                            if (highestDistance < currentDistance)
+                            {
+                                highestDistance = currentDistance;
+                            }
                         }
                     }
                 }
