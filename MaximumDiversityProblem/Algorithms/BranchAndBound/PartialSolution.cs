@@ -52,6 +52,5 @@
             List<int> list = solution.ToList();
             return String.Join(", ", list);
         }
-
     }
 }
