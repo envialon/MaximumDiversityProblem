@@ -43,35 +43,17 @@ namespace MaximumDiversityProblem
         {
             for (int i = 0; i < problem.numberOfVectors; i++)
             {
-                for (int j = i + 1; j < problem.numberOfVectors; j++)
+
+                HashSet<int> partialSolution = new HashSet<int> { i};
+                PartialSolution pSol = new PartialSolution(problem, partialSolution, i, solutionSize);
+                if (pSol.upperBound > lowerBound)
                 {
-                    HashSet<int> partialSolution = new HashSet<int> { i, j };
-                    PartialSolution pSol = new PartialSolution(problem, partialSolution, solutionSize);
-                    if (pSol.upperBound > lowerBound)
-                    {
-                        activeNodes.Add(pSol);
-                    }
+                    activeNodes.Add(pSol);
                 }
+
             }
         }
-
-        private static void GenerateChildren(HashSet<PartialSolution> activeNodes, PartialSolution partialSolution, float lowerBound, int solutionSize)
-        {
-            for (int candidate = 0; candidate < problem.vectors.Count; candidate++)
-            {
-                if (!partialSolution.solution.Contains(candidate))
-                {
-                    HashSet<int> newSolution = new HashSet<int>(partialSolution.solution);
-                    newSolution.Add(candidate);
-                    PartialSolution newPSol = new PartialSolution(problem, newSolution, solutionSize);
-
-                    if (newPSol.upperBound > lowerBound)
-                    {
-                        activeNodes.Add(newPSol);
-                    }
-                }
-            }
-        }
+          
 
         private static void Prune(HashSet<PartialSolution> activeNodes, float lowerBound)
         {
@@ -84,8 +66,7 @@ namespace MaximumDiversityProblem
                 }
             }
         }
-
-
+        
 
         public static Solution Solve(Problem problem, int solutionSize, BBType selectionType)
         {
@@ -96,7 +77,7 @@ namespace MaximumDiversityProblem
             Solution initialSolution = Greedy.Solve(problem, solutionSize, 1);
 
             float lowerBound = initialSolution.totalDistance;
-            PartialSolution bestSolution = new PartialSolution(problem, initialSolution.solution, solutionSize);
+            PartialSolution bestSolution = new PartialSolution(problem, initialSolution.solution, -1, solutionSize);
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -110,12 +91,14 @@ namespace MaximumDiversityProblem
 
                 if (currentSolution.upperBound > lowerBound)
                 {
-                    for (int candidate = 0; candidate < problem.vectors.Count; candidate++) {
+                    int numberOfCandidates = problem.numberOfVectors - (solutionSize - currentSolution.solution.Count) - currentSolution.id;
+                    for (int candidate = currentSolution.id + 1; candidate < numberOfCandidates + 1 + currentSolution.id; candidate++)
+                    {
                         if (!currentSolution.solution.Contains(candidate))
                         {
                             HashSet<int> added = new HashSet<int>(currentSolution.solution);
                             added.Add(candidate);
-                            PartialSolution newSolution = new PartialSolution(problem, added, solutionSize);
+                            PartialSolution newSolution = new PartialSolution(problem, added, candidate, solutionSize);
                             if (newSolution.upperBound > lowerBound)
                             {
                                 if (newSolution.depth == solutionSize)
@@ -123,7 +106,8 @@ namespace MaximumDiversityProblem
                                     lowerBound = newSolution.upperBound;
                                     bestSolution = newSolution;
                                 }
-                                else {
+                                else
+                                {
                                     activeNodes.Add(newSolution);
                                 }
                             }
@@ -132,7 +116,7 @@ namespace MaximumDiversityProblem
                     }
                     Prune(activeNodes, lowerBound);
                 }
-                
+
             }
             sw.Stop();
             Solution toReturn = new Solution(problem, bestSolution);

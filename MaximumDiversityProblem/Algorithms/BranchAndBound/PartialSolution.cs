@@ -6,11 +6,12 @@
         public int depth = -1;
         public float upperBound = -1;
         public int maxSolutionSize;
+        public int id;
 
 
-
-        public PartialSolution(Problem problem, HashSet<int> solution, int maxSolutionSize)
+        public PartialSolution(Problem problem, HashSet<int> solution, int id, int maxSolutionSize)
         {
+            this.id = id;
             this.solution = new HashSet<int>(solution);
             this.depth = solution.Count;
             this.maxSolutionSize = maxSolutionSize;
