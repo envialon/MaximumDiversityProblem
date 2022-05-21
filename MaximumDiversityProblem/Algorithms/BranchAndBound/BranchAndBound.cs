@@ -50,7 +50,6 @@ namespace MaximumDiversityProblem
                 {
                     activeNodes.Add(pSol);
                 }
-
             }
         }
           
@@ -73,9 +72,9 @@ namespace MaximumDiversityProblem
             BranchAndBound.problem = problem;
             BranchAndBound.solutionSize = solutionSize;
             HashSet<PartialSolution> activeNodes = new HashSet<PartialSolution>();
+            int generatedNodesCounter = 0;
 
             Solution initialSolution = Greedy.Solve(problem, solutionSize, 1);
-
             float lowerBound = initialSolution.totalDistance;
             PartialSolution bestSolution = new PartialSolution(problem, initialSolution.solution, -1, solutionSize);
 
@@ -83,7 +82,7 @@ namespace MaximumDiversityProblem
             sw.Start();
 
             InitializeActiveNodes(activeNodes, lowerBound);
-
+            generatedNodesCounter += activeNodes.Count;
             while (activeNodes.Count > 0)
             {
                 PartialSolution currentSolution = SelectPartialSolution(activeNodes.ToList(), selectionType);
@@ -110,6 +109,7 @@ namespace MaximumDiversityProblem
                                 {
                                     activeNodes.Add(newSolution);
                                 }
+                                generatedNodesCounter++;
                             }
 
                         }
@@ -121,8 +121,8 @@ namespace MaximumDiversityProblem
             sw.Stop();
             Solution toReturn = new Solution(problem, bestSolution);
             toReturn.elapsedMilliseconds = sw.ElapsedMilliseconds;
+            toReturn.generatedNodes = generatedNodesCounter;
             return toReturn;
         }
-
     }
 }

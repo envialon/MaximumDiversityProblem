@@ -4,6 +4,42 @@ namespace MaximumDiversityProblem
     class Program
     {
 
+        private static void PrintGraspInfo(List<Solution> solutions, int numberOfProblems)
+        {
+            Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\trcl\tcost\tmilliseconds"));
+            int count = 1;
+            foreach (Solution solution in solutions)
+            {
+                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" + solution.rclSize + "\t"+
+                    + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
+                if (count == numberOfProblems)
+                {
+                    count = 0;
+                    Console.WriteLine();
+                }
+
+                count++;
+            }
+        }
+
+        private static void PrintBranchAndBoundInfo(List<Solution> solutions, int numberOfProblems)
+        {
+            Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds\tgenerated"));
+            int count = 1;
+            foreach (Solution solution in solutions)
+            {
+                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" 
+                    + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds + "\t\t" + solution.generatedNodes);
+                if (count == numberOfProblems)
+                {
+                    count = 0;
+                    Console.WriteLine();
+                }
+
+                count++;
+            }
+        }
+
         private static void PrintSolutionInfo(List<Solution> solutions, int numberOfProblems)
         {
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
@@ -21,7 +57,6 @@ namespace MaximumDiversityProblem
                 count++;
             }
         }
-
 
         private static void PrintSolutionVectors(Solution solution)
         {
@@ -85,31 +120,49 @@ namespace MaximumDiversityProblem
 
             for (int i = SOLUTION_SIZE; i <= 5; i++)
             {
-                SOLUTION_SIZE = i;
                 foreach (Problem problem in problems)
                 {
-                    greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, SOLUTION_SIZE));
-                    graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, SOLUTION_SIZE, RCL_SIZE));
-                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE, BBType.DEPTH_FIRST_SEARCH));  ;
-                    branchAndBoundSmallestUpperBoundSolution.Add(AlgorithmManager.SolveBranchAndBound(problem, SOLUTION_SIZE, BBType.SMALLEST_UPPER_BOUND));
+                    greedySolutions.Add(AlgorithmManager.SolveGreedy(problem, i));
                 }
             }
-
-
             Console.WriteLine("GREEDY SOLUTIONS:");
             PrintSolutionInfo(greedySolutions, problems.Count);
-            
+
+
+            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            {
+                foreach (Problem problem in problems)
+                {
+                    graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, i, RCL_SIZE));
+                }
+            }
             Console.WriteLine();
             Console.WriteLine("GRASP SOLUTIONS:");
-            PrintSolutionInfo(graspSolutions, problems.Count);
-            
+            PrintGraspInfo(graspSolutions, problems.Count);
+
+
+            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            {
+                foreach (Problem problem in problems)
+                {
+                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, i, BBType.DEPTH_FIRST_SEARCH)); 
+                }
+            }
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND DFS SOLUTIONS:");
-            PrintSolutionInfo(branchAndBoundDFSSolutions, problems.Count);
+            PrintBranchAndBoundInfo(branchAndBoundDFSSolutions, problems.Count);
 
+
+            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            {
+                foreach (Problem problem in problems)
+                {
+                    branchAndBoundSmallestUpperBoundSolution.Add(AlgorithmManager.SolveBranchAndBound(problem, i, BBType.SMALLEST_UPPER_BOUND));
+                }
+            }
             Console.WriteLine();
             Console.WriteLine("BRANCH AND BOUND SMALLEST UPPERBOUND FIRST SOLUTIONS:");
-            PrintSolutionInfo(branchAndBoundSmallestUpperBoundSolution, problems.Count);
+            PrintBranchAndBoundInfo(branchAndBoundSmallestUpperBoundSolution, problems.Count);
         }
     }
 }

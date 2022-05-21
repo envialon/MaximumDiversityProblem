@@ -10,6 +10,7 @@
         public float totalDistance = -1;
         public int dimensionality = -1;
         public int rclSize = -1;
+        public int generatedNodes = -1;
         public string id = "undefined";
 
         public Solution(Problem problem, int rclSize = -1)
