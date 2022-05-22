@@ -106,6 +106,7 @@ namespace MaximumDiversityProblem
             }
 
             int SOLUTION_SIZE = 2;
+            int MAX_SOLUTION_SIZE = 5;
             int RCL_SIZE = 2;
 
             List<Problem> problems = new List<Problem>();
@@ -120,7 +121,7 @@ namespace MaximumDiversityProblem
                 problems.Add(new Problem(filename));
             }              
 
-            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            for (int i = SOLUTION_SIZE; i <= MAX_SOLUTION_SIZE; i++)
             {
                 foreach (Problem problem in problems)
                 {
@@ -131,7 +132,7 @@ namespace MaximumDiversityProblem
             PrintSolutionInfo(greedySolutions, problems.Count);
 
 
-            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            for (int i = SOLUTION_SIZE; i <= MAX_SOLUTION_SIZE; i++)
             {
                 foreach (Problem problem in problems)
                 {
@@ -143,7 +144,7 @@ namespace MaximumDiversityProblem
             PrintGraspInfo(graspSolutions, problems.Count);
 
 
-            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            for (int i = SOLUTION_SIZE; i <= MAX_SOLUTION_SIZE; i++)
             {
                 foreach (Problem problem in problems)
                 {
@@ -155,7 +156,7 @@ namespace MaximumDiversityProblem
             PrintBranchAndBoundInfo(branchAndBoundDFSSolutions, problems.Count);
 
 
-            for (int i = SOLUTION_SIZE; i <= 5; i++)
+            for (int i = SOLUTION_SIZE; i <= MAX_SOLUTION_SIZE; i++)
             {
                 foreach (Problem problem in problems)
                 {
