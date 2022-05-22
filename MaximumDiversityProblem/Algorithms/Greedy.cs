@@ -3,7 +3,9 @@ namespace MaximumDiversityProblem
 {
     public class Greedy
     {
-
+        /// <summary>
+        /// Helper function that builds the RCL 
+        /// </summary>
         static private List<int> MakeRCL(List<List<float>> vectors, HashSet<int> vectorHash, List<float> centroid, int rclSize)
         {
 
@@ -33,6 +35,11 @@ namespace MaximumDiversityProblem
             return rcl;
         }
 
+
+        /// <summary>
+        /// This implmentation of the greedy algorithm always builds an RCL, 
+        /// but the default RCL size is set to 1, so it behaves like a basic greedy algorithm.
+        /// </summary>
         static public Solution Solve(Problem problem, int solutionSize, int rclSize = 1)
         {
             Stopwatch sw = new Stopwatch();

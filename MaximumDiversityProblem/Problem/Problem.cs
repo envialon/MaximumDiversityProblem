@@ -1,42 +1,16 @@
 ﻿namespace MaximumDiversityProblem
 {
+    /// <summary>
+    /// Class problem that builds from a file containing the problem info.
+    /// </summary>
     public class Problem
     {
         public string filename = "";
         public int numberOfVectors = -1;
         public int dimensionality = -1;
-        public int solutionSize = -1;
         public List<List<float>> vectors = new List<List<float>>();
         public List<List<float>> distanceMatrix = new List<List<float>>();
-
-
-        public Problem(string filename, int numberOfVectors, int dimensionality, int solutionSize, List<List<float>> vectors)
-        {
-            this.solutionSize = solutionSize;
-            this.filename = filename;
-            this.numberOfVectors = numberOfVectors;
-            this.dimensionality = dimensionality;
-            this.vectors = vectors;
-        }
-
-        private void buildDistanceMatrix()
-        {
-            for (int i = 0; i < numberOfVectors; i++)
-            {
-                distanceMatrix.Add(new List<float>());
-                for (int j = 0; j < numberOfVectors; j++)
-                {                    
-                    if(i == j) {
-                        distanceMatrix[i].Add(0);
-                    }
-                    else
-                    {
-                        distanceMatrix[i].Add(Utils.GetDistance(vectors[i], vectors[j]));
-                    }
-                }
-            }
-        }
-
+         
         public Problem(string filename)
         {
             buildFromFile(filename);
@@ -58,6 +32,25 @@
             }
         }
 
+        private void buildDistanceMatrix()
+        {
+            for (int i = 0; i < numberOfVectors; i++)
+            {
+                distanceMatrix.Add(new List<float>());
+                for (int j = 0; j < numberOfVectors; j++)
+                {
+                    if (i == j)
+                    {
+                        distanceMatrix[i].Add(0);
+                    }
+                    else
+                    {
+                        distanceMatrix[i].Add(Utils.GetDistance(vectors[i], vectors[j]));
+                    }
+                }
+            }
+        }
+        
         public void buildFromFile(string filename)
         {
             this.filename = filename.Split("\\").Last();

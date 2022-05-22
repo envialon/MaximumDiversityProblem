@@ -4,6 +4,9 @@ namespace MaximumDiversityProblem
     class Program
     {
 
+        /// <summary>
+        /// Helper function to print the Grasp information
+        /// </summary>
         private static void PrintGraspInfo(List<Solution> solutions, int numberOfProblems)
         {
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\trcl\tcost\tmilliseconds"));
@@ -22,6 +25,9 @@ namespace MaximumDiversityProblem
             }
         }
 
+        /// <summary>
+        /// Helper function to print the Branch and bound info
+        /// </summary>
         private static void PrintBranchAndBoundInfo(List<Solution> solutions, int numberOfProblems)
         {
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds\tgenerated"));
@@ -40,6 +46,10 @@ namespace MaximumDiversityProblem
             }
         }
 
+
+        /// <summary>
+        /// Helper fucntion to print basic solution Info
+        /// </summary>
         private static void PrintSolutionInfo(List<Solution> solutions, int numberOfProblems)
         {
             Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
@@ -52,12 +62,19 @@ namespace MaximumDiversityProblem
                 {
                     count = 0;
                     Console.WriteLine();
+                    if (solution.totalDistance.ToString("0.00") != Utils.GetSolutionDistance(solution).ToString("0.00"))
+                    {
+                        Console.WriteLine("ERROR: correct distance is " + Utils.GetSolutionDistance(solution));
+                    }
                 }
 
                 count++;
             }
         }
 
+        /// <summary>
+        /// Used to print the solution vectors
+        /// </summary>
         private static void PrintSolutionVectors(Solution solution)
         {
             Console.WriteLine("{ ");
@@ -72,25 +89,10 @@ namespace MaximumDiversityProblem
             }
             Console.WriteLine(" }");
         }
-
-        private static void PrintSolutionInfo(List<Solution> solutions)
-        {
-            float solutionTest = Utils.GetSolutionDistance(solutions[0]);
-            Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\tcost\tmilliseconds"));
-            foreach (Solution solution in solutions)
-            {
-                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t"
-                    + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
-
-                float solutionDist = Utils.GetSolutionDistance(solution);
-
-                if (solution.totalDistance.ToString("0.00") != Utils.GetSolutionDistance(solution).ToString("0.00"))
-                {
-                    Console.WriteLine("ERROR: correct distance is " + Utils.GetSolutionDistance(solution));
-                }
-            }
-        }
-
+    
+        /// <summary>
+        /// Main body of the program
+        /// </summary>
         public static void Main(string[] args)
         {
             string path;

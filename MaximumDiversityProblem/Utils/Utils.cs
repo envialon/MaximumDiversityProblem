@@ -1,8 +1,14 @@
 ﻿namespace MaximumDiversityProblem
 {
+    /// <summary>
+    /// Utils is a class with static methods that provide common functionalities used 
+    /// to solve the Maximum Diversity Problem.
+    /// </summary>
     public class Utils
     {
-
+        /// <summary>
+        /// This function calculates the centroid given a set of vectors
+        /// </summary>
         static public List<float> GetCentroid(List<List<float>> vectors, HashSet<int> solutionSet)
         {
             List<int> solutionIndexes = solutionSet.ToList();
@@ -27,6 +33,9 @@
             return result;
         }
 
+        /// <summary>
+        /// This funciton calculates the distance of a given solution
+        /// </summary>
         static public float GetSolutionDistance(Solution solution)
         {
             float totalDistance = 0;
@@ -44,6 +53,10 @@
             return (float)Math.Round(totalDistance, 2);
         }
 
+
+        /// <summary>
+        /// This funciton calculates the distance of a given indexList and the problem with the vector information
+        /// </summary>
         static public float GetSolutionDistance(List<int> indexList, Problem problem) {
             float totalDistance = 0;
             List<List<float>> vectors = problem.vectors;
@@ -59,6 +72,9 @@
             return (float)Math.Round(totalDistance, 2);
         }
 
+        /// <summary>
+        /// This funciton calculates the distance between two vectors
+        /// </summary>
         static public float GetDistance(List<float> origin, List<float> target)
         {
             float result = 0;
@@ -71,32 +87,9 @@
             return (float)Math.Round(Math.Sqrt(result), 2);
         }
 
-        static public float GetDistanceToSet(List<List<float>> distanceMatrix, HashSet<int> s, int target)
-        {
-            float result = 0;
-            List<int> solutionList = s.ToList();
-            for (int i = 0; i < solutionList.Count; i++)
-            {
-                result += distanceMatrix[target][solutionList[i]];
-            }
-
-            return (float)Math.Round(result, 2);
-        }
-        //static public float GetDistanceToSet(List<List<float>> vectors, HashSet<int> s, int target)
-        //{
-        //    float result = 0;
-        //    List<int> solutionList = s.ToList();
-        //    for (int i = 0; i < solutionList.Count; i++)
-        //    {
-        //        if (solutionList[i] != target)
-        //        {
-        //            result += GetDistance(vectors[target], vectors[solutionList[i]]);
-        //        }
-        //    }
-
-        //    return result;
-        //}
-
+        /// <summary>
+        /// This function calculates the sum of the distance between one vector and all of the vectors of a set
+        /// </summary>
         static public float GetDistanceToSet(List<List<float>> distanceMatrix, List<int> solutionList, int target)
         {
             float result = 0;

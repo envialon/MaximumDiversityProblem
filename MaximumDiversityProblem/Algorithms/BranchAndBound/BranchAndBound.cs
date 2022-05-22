@@ -1,17 +1,27 @@
 ﻿using System.Diagnostics;
 namespace MaximumDiversityProblem
 {
+    /// <summary>
+    /// Enum with the selection methods for the branch and bound algorithm.s
+    /// </summary>
     public enum BBType
     {
         SMALLEST_UPPER_BOUND,
         DEPTH_FIRST_SEARCH,
     }
 
+    /// <summary>
+    /// Class with static methods to solve the given problem using the Branch and bound algorithm
+    /// </summary>
     internal class BranchAndBound
     {
         private static Problem problem;
         private static int solutionSize;
 
+        /// <summary>
+        /// Helper funciton that choses the next node to evaluate 
+        /// depending on the selection type
+        /// </summary>
         private static PartialSolution SelectPartialSolution(List<PartialSolution> activeSolutions, BBType selectionType)
         {
             PartialSolution bestSolution = activeSolutions.First();
@@ -38,7 +48,9 @@ namespace MaximumDiversityProblem
             return bestSolution;
         }
 
-
+        /// <summary>
+        /// Helper function to initialize the nodes for the branch and bound algorithm
+        /// </summary>
         private static void InitializeActiveNodes(HashSet<PartialSolution> activeNodes, float lowerBound)
         {
             for (int i = 0; i < problem.numberOfVectors; i++)
@@ -53,7 +65,9 @@ namespace MaximumDiversityProblem
             }
         }
           
-
+        /// <summary>
+        /// Helper function that prunes the activeNodes given a lower bound
+        /// </summary>
         private static void Prune(HashSet<PartialSolution> activeNodes, float lowerBound)
         {
 
@@ -65,9 +79,12 @@ namespace MaximumDiversityProblem
                 }
             }
         }
-        
 
-        public static Solution Solve(Problem problem, int solutionSize, BBType selectionType)
+        /// <summary>
+        /// Solves the given problem with the given solution size 
+        /// using the branch and bound algorithm, the selection type is DFS by default
+        /// </summary>
+        public static Solution Solve(Problem problem, int solutionSize, BBType selectionType = BBType.DEPTH_FIRST_SEARCH)
         {
             BranchAndBound.problem = problem;
             BranchAndBound.solutionSize = solutionSize;

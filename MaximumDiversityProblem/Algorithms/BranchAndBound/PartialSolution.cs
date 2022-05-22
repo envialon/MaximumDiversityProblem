@@ -1,5 +1,8 @@
 ﻿namespace MaximumDiversityProblem
 {
+    /// <summary>
+    /// Class that represents a partial solution for the branch and bound algorithm.
+    /// </summary>
     public class PartialSolution
     {
         public HashSet<int> solution = new HashSet<int>();
@@ -18,7 +21,9 @@
             this.upperBound = CalculateUpperBound(problem);
         }
 
-
+        /// <summary>
+        /// Helper function that calculates the upper bound of the partial solution.
+        /// </summary>
         private float CalculateUpperBound(Problem problem)
         {
             List<int> indexList = solution.ToList();
@@ -47,6 +52,9 @@
             return Utils.GetSolutionDistance(indexList, problem) + highestDistance * coef;
         }
 
+        /// <summary>
+        /// ToString method to help with the debug
+        /// </summary>
         public override string ToString()
         {
             List<int> list = solution.ToList();

@@ -1,5 +1,8 @@
 ﻿namespace MaximumDiversityProblem
 {
+    /// <summary>
+    /// Class that implements a Swap local search
+    /// </summary>
     public class SwapLocalSearch
     {
         public static Solution Search(Solution s)

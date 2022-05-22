@@ -51,16 +51,5 @@
         {
             solution.Add(index);
         }
-
-        public void remove(int index)
-        {
-            solution.Remove(index);
-        }
-
-        public string GetTable()
-        {
-            return "";
-        }
-
     }
 }

@@ -1,5 +1,8 @@
 ﻿namespace MaximumDiversityProblem
 {
+    /// <summary>
+    /// Class that manages the different algorithms implemented to solve the maximum diversity problem
+    /// </summary>
     public class AlgorithmManager
     {
         public static Solution SolveGreedy(Problem problem, int problemSize, int rclSize = 1)
