@@ -6,6 +6,7 @@
         public List<List<float>> distanceMatrix = new List<List<float>>();
         public HashSet<int> solution = new HashSet<int>();
         public HashSet<int> discarted = new HashSet<int>();
+        public int iterations = -1;
         public long elapsedMilliseconds = -1;
         public float totalDistance = -1;
         public int dimensionality = -1;

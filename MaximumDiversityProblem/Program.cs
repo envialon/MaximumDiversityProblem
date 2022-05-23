@@ -9,12 +9,12 @@ namespace MaximumDiversityProblem
         /// </summary>
         private static void PrintGraspInfo(List<Solution> solutions, int numberOfProblems)
         {
-            Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\trcl\tcost\tmilliseconds"));
+            Console.WriteLine(String.Format("\tfilename\tn\tdim\ts_size\titerations\trcl\tcost\tmilliseconds"));
             int count = 1;
             foreach (Solution solution in solutions)
             {
-                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" + solution.rclSize + "\t"+
-                    + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
+                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" + solution.solution.Count + "\t\t" + solution.iterations + "\t" + solution.rclSize + "\t" +
+                     solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds);
                 if (count == numberOfProblems)
                 {
                     count = 0;
@@ -34,7 +34,7 @@ namespace MaximumDiversityProblem
             int count = 1;
             foreach (Solution solution in solutions)
             {
-                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t" 
+                Console.WriteLine(solution.id + "\t" + solution.vectors.Count + "\t" + solution.dimensionality + "\t"
                     + solution.solution.Count + "\t" + solution.totalDistance.ToString("0.00") + "\t" + solution.elapsedMilliseconds + "\t\t" + solution.generatedNodes);
                 if (count == numberOfProblems)
                 {
@@ -89,7 +89,7 @@ namespace MaximumDiversityProblem
             }
             Console.WriteLine(" }");
         }
-    
+
         /// <summary>
         /// Main body of the program
         /// </summary>
@@ -107,7 +107,6 @@ namespace MaximumDiversityProblem
 
             int SOLUTION_SIZE = 2;
             int MAX_SOLUTION_SIZE = 5;
-            int RCL_SIZE = 2;
 
             List<Problem> problems = new List<Problem>();
             List<Solution> greedySolutions = new List<Solution>();
@@ -119,7 +118,7 @@ namespace MaximumDiversityProblem
             foreach (string filename in Directory.EnumerateFiles(path, "*.txt"))
             {
                 problems.Add(new Problem(filename));
-            }              
+            }
 
             for (int i = SOLUTION_SIZE; i <= MAX_SOLUTION_SIZE; i++)
             {
@@ -136,7 +135,7 @@ namespace MaximumDiversityProblem
             {
                 foreach (Problem problem in problems)
                 {
-                    graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, i, RCL_SIZE));
+                    graspSolutions.Add(AlgorithmManager.SolveGrasp(problem, i, 10, 2));
                 }
             }
             Console.WriteLine();
@@ -148,7 +147,7 @@ namespace MaximumDiversityProblem
             {
                 foreach (Problem problem in problems)
                 {
-                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, i, BBType.DEPTH_FIRST_SEARCH)); 
+                    branchAndBoundDFSSolutions.Add(AlgorithmManager.SolveBranchAndBound(problem, i, BBType.DEPTH_FIRST_SEARCH));
                 }
             }
             Console.WriteLine();

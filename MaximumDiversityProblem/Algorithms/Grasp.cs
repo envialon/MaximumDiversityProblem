@@ -3,7 +3,7 @@ namespace MaximumDiversityProblem
 {
     public class Grasp
     {
-        public static Solution Solve(Problem problem, int solutionSize, int rclSize)
+        public static Solution Solve(Problem problem, int solutionSize, int maxIter,  int rclSize)
         {
             Stopwatch sw = new Stopwatch();
             Solution bestSolution = new Solution(problem);
@@ -23,6 +23,7 @@ namespace MaximumDiversityProblem
             }
             sw.Stop();
             bestSolution.elapsedMilliseconds = sw.ElapsedMilliseconds;
+            bestSolution.iterations = maxIter;
             return bestSolution;
         }
     }

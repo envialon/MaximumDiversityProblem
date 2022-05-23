@@ -91,7 +91,7 @@ namespace MaximumDiversityProblem
             HashSet<PartialSolution> activeNodes = new HashSet<PartialSolution>();
             int generatedNodesCounter = 0;
 
-            Solution initialSolution = Grasp.Solve(problem, solutionSize, 1);
+            Solution initialSolution = Grasp.Solve(problem, solutionSize, 20,  1);
             float lowerBound = initialSolution.totalDistance;
             PartialSolution bestSolution = new PartialSolution(problem, initialSolution.solution, -1, solutionSize);
 
